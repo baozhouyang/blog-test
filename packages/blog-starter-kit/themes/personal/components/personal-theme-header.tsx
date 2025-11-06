@@ -13,12 +13,12 @@ export const PersonalHeader = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const renderNavItems = (mobile = false) => (
-    <ul className={`flex items-center gap-5 ${mobile ? 'flex-col gap-4' : ''}`}>
+    <ul className={`flex items-center ${mobile ? 'flex-col gap-4' : 'gap-6 lg:gap-8'}`}>
       {!isHome && (
         <li>
           <Link 
             href="/" 
-            className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+            className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
             onClick={() => mobile && setIsMenuOpen(false)}
           >
             Home
@@ -28,7 +28,7 @@ export const PersonalHeader = () => {
       <li>
         <Link 
           href="/tags" 
-          className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+          className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
           Tags
@@ -37,7 +37,7 @@ export const PersonalHeader = () => {
       <li>
         <Link 
           href="/series" 
-          className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+          className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
           Series
@@ -46,7 +46,7 @@ export const PersonalHeader = () => {
       <li>
         <Link 
           href="/archive" 
-          className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+          className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
           Archive
@@ -55,7 +55,7 @@ export const PersonalHeader = () => {
       <li>
         <Link 
           href="/about" 
-          className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+          className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
           About
@@ -66,10 +66,10 @@ export const PersonalHeader = () => {
 
   // 搜索和主题切换按钮（用于桌面端和移动端）
   const renderActionButtons = () => (
-    <div className="flex items-center space-x-3 sm:space-x-4">
+    <div className="flex items-center gap-4 sm:gap-5">
       <button
         onClick={() => setIsSearchOpen(true)}
-        className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
+        className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
         title="Search"
         aria-label="Search"
       >
@@ -82,50 +82,55 @@ export const PersonalHeader = () => {
   );
 
   return (
-    <header className="relative flex items-center justify-between">
-      <div>
-        <Link
-          href="/"
-          className="text-xl sm:text-2xl font-bold text-slate-900 hover:text-slate-700 dark:text-white dark:hover:text-slate-200"
-        >
-          {publication.title}
-        </Link>
-      </div>
-      
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex md:items-center md:gap-5">
-        {renderNavItems()}
-        {renderActionButtons()}
-      </nav>
-
-      {/* Mobile: 搜索和主题切换按钮 + 菜单按钮 */}
-      <div className="flex items-center gap-2 md:hidden">
-        {renderActionButtons()}
-        <button
-          className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-              <path fillRule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clipRule="evenodd" />
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="absolute top-full left-0 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-lg md:hidden">
-          <nav className="container mx-auto px-5 py-6">
-            {renderNavItems(true)}
+    <header className="sticky top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative flex items-center justify-between h-14 sm:h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link
+              href="/"
+              className="text-lg sm:text-xl font-semibold text-slate-900 hover:text-slate-700 dark:text-white dark:hover:text-slate-200 transition-colors"
+            >
+              {publication.title}
+            </Link>
+          </div>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex md:items-center md:gap-8">
+            {renderNavItems()}
+            {renderActionButtons()}
           </nav>
+
+          {/* Mobile: 搜索和主题切换按钮 + 菜单按钮 */}
+          <div className="flex items-center gap-3 md:hidden">
+            {renderActionButtons()}
+            <button
+              className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                  <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                  <path fillRule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clipRule="evenodd" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 md:hidden">
+            <nav className="px-4 sm:px-6 py-4">
+              {renderNavItems(true)}
+            </nav>
+          </div>
+        )}
+      </div>
 
       {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />

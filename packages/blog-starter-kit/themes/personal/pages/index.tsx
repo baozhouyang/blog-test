@@ -99,10 +99,10 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					<PersonalHeader />
 					
 					{/* About this publication */}
-					<div className="space-y-6 sm:space-y-8 rounded-2xl border border-white/40 dark:border-slate-700/40 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl p-4 sm:p-6 shadow-glass-light dark:shadow-glass-dark">
+					<div className="space-y-0 rounded-2xl border border-white/40 dark:border-slate-700/40 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl shadow-glass-light dark:shadow-glass-dark">
 						{/* Author Info */}
 						{publication.author && (
-							<div className="space-y-3 sm:space-y-4">
+							<div className="space-y-3 sm:space-y-4 p-4 sm:p-6 pb-4 sm:pb-6">
 								<div className="flex items-center gap-3 sm:gap-4">
 									{publication.author.profilePicture && (
 										<Image
@@ -133,31 +133,43 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 							</div>
 						)}
 
+						{/* 分隔线 */}
+						{publication.author && (publication.about?.html || publication.descriptionSEO) && (
+							<div className="border-t border-slate-200 dark:border-slate-700"></div>
+						)}
+
 						{/* About Publication */}
-						<div className="space-y-3 sm:space-y-4 border-t border-white/30 dark:border-slate-700/30 pt-4 sm:pt-6 backdrop-blur-sm">
-							<h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-								About this publication
-							</h2>
-							{publication.about?.html ? (
-								<div 
-									className="prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none"
-									dangerouslySetInnerHTML={{ __html: publication.about.html }}
-								/>
-							) : (
-								<p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
-									{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
-								</p>
-							)}
-						</div>
+						{(publication.about?.html || publication.descriptionSEO) && (
+							<div className="space-y-3 sm:space-y-4 p-4 sm:p-6 pb-4 sm:pb-6">
+								<h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+									About this publication
+								</h2>
+								{publication.about?.html ? (
+									<div 
+										className="prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none"
+										dangerouslySetInnerHTML={{ __html: publication.about.html }}
+									/>
+								) : (
+									<p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
+										{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
+									</p>
+								)}
+							</div>
+						)}
 
 						{/* Debug output */}
 						<div className="hidden">
 							{JSON.stringify({ publication, authorSocialLinks: publication.author?.socialMediaLinks }, null, 2)}
 						</div>
 						
+						{/* 分隔线 */}
+						{publication.links && (publication.author || publication.about?.html || publication.descriptionSEO) && (
+							<div className="border-t border-slate-200 dark:border-slate-700"></div>
+						)}
+						
 						{/* Social Links */}
 						{publication.links && (
-							<div className="border-t border-white/30 dark:border-slate-700/30 pt-4 sm:pt-6 backdrop-blur-sm">
+							<div className="p-4 sm:p-6">
 								<div className="flex flex-wrap items-center gap-2 sm:gap-3">
 									{/* RSS Link */}
 									<a

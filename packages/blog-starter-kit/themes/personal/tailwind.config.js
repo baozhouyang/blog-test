@@ -6,6 +6,9 @@ module.exports = {
 	darkMode: 'class',
 	theme: {
 		extend: {
+			fontFamily: {
+				chinese: ['"LXGW WenKai"', 'system-ui', '-apple-system', 'sans-serif'],
+			},
 			colors: {
 				'accent-1': '#FAFAFA',
 				'accent-2': '#EAEAEA',

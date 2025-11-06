@@ -12,8 +12,8 @@ export const Footer = () => {
 	);
 
 	return (
-		<footer className="border-t border-white/40 dark:border-slate-700/40 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl mt-auto shadow-glass-light dark:shadow-glass-dark">
-			<div className="container mx-auto flex flex-col items-center gap-6 sm:gap-8 py-8 sm:py-12 md:py-16 px-4 sm:px-5 backdrop-blur-sm">
+		<footer className="border-t border-slate-200 dark:border-slate-800 mt-auto">
+			<div className="container mx-auto flex flex-col items-center gap-6 sm:gap-8 py-8 sm:py-12 md:py-16 px-4 sm:px-5">
 				{/* Blog Name */}
 				<h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
 					{publication.displayTitle || publication.title}
@@ -79,7 +79,7 @@ export const Footer = () => {
 				)}
 
 				{/* Powered by info - smaller at bottom */}
-				<div className="text-xs sm:text-sm text-slate-500 dark:text-slate-500 text-center pt-2 border-t border-white/30 dark:border-slate-700/30 w-full max-w-md backdrop-blur-sm">
+				<div className="text-xs sm:text-sm text-slate-500 dark:text-slate-500 text-center pt-2 border-t border-slate-200 dark:border-slate-800 w-full max-w-md">
 					<div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
 					<span>Powered by</span>
 					<a href="https://hashnode.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">

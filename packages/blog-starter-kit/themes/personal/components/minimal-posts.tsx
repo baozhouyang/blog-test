@@ -9,7 +9,7 @@ type Props = {
 
 export const MinimalPosts = ({ posts }: Props) => {
 	return (
-		<section className="flex w-full flex-col items-stretch gap-6">
+		<section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 w-full">
 			{posts.map((post) => {
 				// 提取文章中的第一张图片
 				const contentImageUrl = extractFirstImageFromMarkdown(post.content?.markdown);
