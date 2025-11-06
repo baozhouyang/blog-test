@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { request } from 'graphql-request';
 import { useAppContext } from './contexts/appContext';
 
@@ -212,10 +213,12 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 												>
 												<div className="flex flex-col sm:flex-row sm:items-start gap-3">
 													{result.coverImage?.url && (
-														<div className="w-full sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 shrink-0 shadow-sm">
-															<img
+														<div className="relative w-full sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 shrink-0 shadow-sm">
+															<Image
 																src={result.coverImage.url}
 																alt={result.title}
+																width={96}
+																height={96}
 																className="w-full h-full object-cover"
 															/>
 														</div>
