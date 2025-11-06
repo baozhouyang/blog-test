@@ -69,7 +69,16 @@ const config = {
 				protocol: 'https',
 				hostname: 'cdn.hashnode.com',
 			},
+			{
+				protocol: 'https',
+				hostname: 'hashnode.imgix.net',
+			},
+			{
+				protocol: 'https',
+				hostname: 'res.cloudinary.com',
+			},
 		],
+		// 由于设置了 unoptimized: true，实际上不需要限制域名
 	},
 	async rewrites() {
 		return [

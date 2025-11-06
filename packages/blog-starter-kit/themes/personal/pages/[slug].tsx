@@ -60,11 +60,13 @@ const Post = ({ publication, post }: PostProps) => {
 		</li>
 	));
 
-	if (post.hasLatexInPost) {
-		setTimeout(() => {
-			handleMathJax(true);
-		}, 500);
-	}
+	useEffect(() => {
+		if (post.hasLatexInPost) {
+			setTimeout(() => {
+				handleMathJax(true);
+			}, 500);
+		}
+	}, [post.hasLatexInPost]);
 
 	useEffect(() => {
 		(async () => {
@@ -119,11 +121,11 @@ const Post = ({ publication, post }: PostProps) => {
 				<style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
 			</Head>
 			<article className="mx-auto max-w-2xl">
-				<header className="mb-8 space-y-6">
-					<h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+				<header className="mb-6 sm:mb-8 space-y-4 sm:space-y-6">
+					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
 						{post.title}
 					</h1>
-					<div className="flex flex-wrap items-center gap-x-3 text-sm text-slate-500 dark:text-slate-400">
+					<div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
 						<span className="font-medium text-slate-700 dark:text-slate-300">{post.author.name}</span>
 						<span>·</span>
 						<DateFormatter dateString={post.publishedAt} />
@@ -133,17 +135,17 @@ const Post = ({ publication, post }: PostProps) => {
 				</header>
 
 				{!!coverImageSrc && (
-					<div className="-mx-4 mb-8 overflow-hidden md:mx-0 md:rounded-lg">
+					<div className="-mx-4 sm:-mx-6 md:mx-0 mb-6 sm:mb-8 overflow-hidden md:rounded-lg">
 						<CoverImage title={post.title} priority={true} src={coverImageSrc} />
 					</div>
 				)}
 
-				<div className="prose prose-slate mx-auto dark:prose-invert">
+				<div className="prose prose-sm sm:prose-base prose-slate mx-auto max-w-none dark:prose-invert">
 					<MarkdownToHtml contentMarkdown={post.content.markdown} />
 				</div>
 
 				{(post.tags ?? []).length > 0 && (
-					<div className="mt-8 flex flex-wrap gap-2">
+					<div className="mt-6 sm:mt-8 flex flex-wrap gap-2">
 						{tagsList}
 					</div>
 				)}
@@ -172,9 +174,9 @@ export default function PostOrPage(props: Props) {
 	return (
 		<AppProvider publication={publication} post={maybePost} page={maybePage}>
 			<Layout>
-				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-6 sm:gap-8 md:gap-10 py-6 sm:py-8 md:py-10 min-h-full">
 					<PersonalHeader />
-					<article className="flex flex-col items-start gap-10 pb-10">
+					<article className="flex flex-col items-start gap-6 sm:gap-8 md:gap-10 pb-6 sm:pb-8 md:pb-10">
 						{props.type === 'post' && <Post {...props} />}
 						{props.type === 'page' && <Page {...props} />}
 					</article>

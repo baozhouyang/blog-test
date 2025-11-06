@@ -9,6 +9,9 @@ fragment Post on Post {
 	coverImage {
 		url
 	}
+	content {
+		markdown
+	}
 	publishedAt
 	readTimeInMinutes
 	slug

@@ -3,6 +3,7 @@ import ChevronDownSVG from './ChevronDownSVG';
 import ExternalArrowSVG from './ExternalArrowSVG';
 import GithubSVG from './GithubSVG';
 import HashnodeSVG from './HashnodeSVG';
+import InstagramSVG from './InstagramSVG';
 import LinkedinSVG from './LinkedinSVG';
 import Moon from './Moon';
 import NewsletterPlusSVG from './NewsletterPlusSVG';
@@ -17,6 +18,7 @@ export {
 	ExternalArrowSVG,
 	GithubSVG,
 	HashnodeSVG,
+	InstagramSVG,
 	LinkedinSVG,
 	Moon,
 	NewsletterPlusSVG,

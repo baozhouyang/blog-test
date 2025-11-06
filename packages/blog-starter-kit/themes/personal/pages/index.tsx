@@ -13,6 +13,17 @@ import { Layout } from '../components/layout';
 import { MinimalPosts } from '../components/minimal-posts';
 import { PersonalHeader } from '../components/personal-theme-header';
 import {
+	FaGithub, 
+	FaLinkedin, 
+	FaInstagram, 
+	FaRss,
+	FaGlobe,
+} from 'react-icons/fa';
+import { 
+	SiHashnode,
+	SiX,
+} from 'react-icons/si';
+import {
 	MorePostsByPublicationDocument,
 	MorePostsByPublicationQuery,
 	MorePostsByPublicationQueryVariables,
@@ -84,30 +95,30 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 						}}
 					/>
 				</Head>
-				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-6 sm:gap-8 md:gap-10 py-6 sm:py-8 md:py-10 min-h-full">
 					<PersonalHeader />
 					
 					{/* About this publication */}
-					<div className="space-y-8 rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800">
+					<div className="space-y-6 sm:space-y-8 rounded-2xl border border-white/40 dark:border-slate-700/40 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl p-4 sm:p-6 shadow-glass-light dark:shadow-glass-dark">
 						{/* Author Info */}
 						{publication.author && (
-							<div className="space-y-4">
-								<div className="flex items-center gap-4">
+							<div className="space-y-3 sm:space-y-4">
+								<div className="flex items-center gap-3 sm:gap-4">
 									{publication.author.profilePicture && (
 										<Image
 											src={publication.author.profilePicture}
 											alt={publication.author.name}
-											className="h-16 w-16 rounded-full"
+											className="h-12 w-12 sm:h-16 sm:w-16 rounded-full shrink-0"
 											width={64}
 											height={64}
 										/>
 									)}
-									<div>
-										<p className="font-medium text-slate-900 dark:text-white">
+									<div className="min-w-0 flex-1">
+										<p className="font-medium text-sm sm:text-base text-slate-900 dark:text-white">
 											{publication.author.name}
 										</p>
 										{publication.author.tagline && (
-											<p className="text-sm text-slate-500 dark:text-slate-400">
+											<p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
 												{publication.author.tagline}
 											</p>
 										)}
@@ -115,7 +126,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 								</div>
 								{publication.author.bio?.html && (
 									<div 
-										className="prose prose-sm prose-slate dark:prose-invert"
+										className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
 										dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
 									/>
 								)}
@@ -123,17 +134,17 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 						)}
 
 						{/* About Publication */}
-						<div className="space-y-4 border-t border-slate-200 pt-6 dark:border-slate-700">
-							<h2 className="text-xl font-bold text-slate-900 dark:text-white">
+						<div className="space-y-3 sm:space-y-4 border-t border-white/30 dark:border-slate-700/30 pt-4 sm:pt-6 backdrop-blur-sm">
+							<h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
 								About this publication
 							</h2>
 							{publication.about?.html ? (
 								<div 
-									className="prose prose-slate dark:prose-invert max-w-none"
+									className="prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none"
 									dangerouslySetInnerHTML={{ __html: publication.about.html }}
 								/>
 							) : (
-								<p className="text-slate-500 dark:text-slate-400">
+								<p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
 									{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
 								</p>
 							)}
@@ -146,83 +157,95 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 						
 						{/* Social Links */}
 						{publication.links && (
-							<div className="border-t border-slate-200 pt-6 dark:border-slate-700">
-								<div className="flex flex-wrap gap-4">
+							<div className="border-t border-white/30 dark:border-slate-700/30 pt-4 sm:pt-6 backdrop-blur-sm">
+								<div className="flex flex-wrap items-center gap-2 sm:gap-3">
 									{/* RSS Link */}
 									<a
 										href="/rss.xml"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-										title="RSS"
+										className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-orange-500 dark:text-slate-400 dark:hover:text-orange-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-orange-300/50 dark:hover:border-orange-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+										title="RSS Feed"
+										aria-label="RSS Feed"
 									>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-											<path fillRule="evenodd" d="M3.75 4.5a.75.75 0 01.75-.75h.75c8.284 0 15 6.716 15 15v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75C18 11.708 12.292 6 5.25 6H4.5a.75.75 0 01-.75-.75V4.5zm0 6.75a.75.75 0 01.75-.75h.75a7.5 7.5 0 017.5 7.5v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75c0-3.176-2.574-5.75-5.75-5.75H4.5a.75.75 0 01-.75-.75v-.75zm0 7.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
-										</svg>
+										<FaRss className="w-4 h-4" />
 									</a>
+									{/* Twitter/X Link */}
 									{publication.links.twitter && (
 										<a
 											href={publication.links.twitter}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
-											title="Twitter"
+											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-slate-300/50 dark:hover:border-slate-600/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											title="X (Twitter)"
+											aria-label="X (Twitter)"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-												<path d="M11.7 12.5c0-2.3 2.9-3.5 4.7-1.9l3.7-2.1v4.2l-3.7-2.1c-1.8 1.6-4.7.4-4.7-1.9V7.5L8 9.6v4.8l3.7-2.1v.2z"/>
-											</svg>
+											<SiX className="w-4 h-4" />
 										</a>
 									)}
+									{/* Instagram Link */}
+									{publication.links.instagram && (
+										<a
+											href={publication.links.instagram}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-pink-500 dark:text-slate-400 dark:hover:text-pink-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-pink-300/50 dark:hover:border-pink-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											title="Instagram"
+											aria-label="Instagram"
+										>
+											<FaInstagram className="w-4 h-4" />
+										</a>
+									)}
+									{/* GitHub Link */}
 									{publication.links.github && (
 										<a
 											href={publication.links.github}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-slate-300/50 dark:hover:border-slate-600/50 transition-all duration-200 shadow-sm hover:shadow-md"
 											title="GitHub"
+											aria-label="GitHub"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-												<path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-											</svg>
+											<FaGithub className="w-4 h-4" />
 										</a>
 									)}
+									{/* LinkedIn Link */}
 									{publication.links.linkedin && (
 										<a
 											href={publication.links.linkedin}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-blue-300/50 dark:hover:border-blue-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
 											title="LinkedIn"
+											aria-label="LinkedIn"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-												<path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
-											</svg>
+											<FaLinkedin className="w-4 h-4" />
 										</a>
 									)}
+									{/* Website Link */}
 									{publication.links.website && (
 										<a
 											href={publication.links.website}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-blue-300/50 dark:hover:border-blue-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
 											title="Website"
+											aria-label="Website"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-												<path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM6.262 6.072a8.25 8.25 0 1010.562-.766 4.5 4.5 0 01-1.318 1.357L14.25 7.5l.165.33a.809.809 0 01-1.086 1.085l-.604-.302a1.125 1.125 0 00-1.298.21l-.132.131c-.439.44-.439 1.152 0 1.591l.296.296c.256.257.622.374.98.314l1.17-.195c.323-.054.654.036.905.245l1.33 1.108c.32.267.46.694.358 1.1a8.7 8.7 0 01-2.288 4.04l-.723.724a1.125 1.125 0 01-1.298.21l-.153-.076a1.125 1.125 0 01-.622-1.006v-1.089c0-.298-.119-.585-.33-.796l-1.347-1.347a1.125 1.125 0 01-.21-1.298L9.75 12l-1.64-1.64a6 6 0 01-1.676-3.257l-.172-1.03z" clipRule="evenodd" />
-											</svg>
+											<FaGlobe className="w-4 h-4" />
 										</a>
 									)}
+									{/* Hashnode Link */}
 									{publication.links.hashnode && (
 										<a
 											href={publication.links.hashnode}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-blue-300/50 dark:hover:border-blue-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
 											title="Hashnode"
+											aria-label="Hashnode"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-												<path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
-											</svg>
+											<SiHashnode className="w-4 h-4" />
 										</a>
 									)}
 								</div>
@@ -233,7 +256,10 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					{/* Posts list */}
 					{posts.length > 0 && <MinimalPosts context="home" posts={posts} />}
 					{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-						<button onClick={loadMore}>
+						<button 
+							onClick={loadMore}
+							className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-500/80 dark:bg-blue-600/80 backdrop-blur-md text-white hover:bg-blue-600/90 dark:hover:bg-blue-500/90 border border-blue-400/30 dark:border-blue-500/30 transition-all duration-200 text-sm sm:text-base font-medium shadow-glass-light dark:shadow-glass-dark hover:shadow-glass-hover"
+						>
 							Load more
 						</button>
 					)}

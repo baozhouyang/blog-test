@@ -69,6 +69,7 @@ fragment Publication on Publication {
     linkedin
     website
     hashnode
+    instagram
   }
   integrations {
     umamiWebsiteUUID

@@ -1,5 +1,5 @@
 const handleMathJax = (rerun = false) => {
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
       return;
     }
   

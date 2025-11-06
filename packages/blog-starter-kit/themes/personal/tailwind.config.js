@@ -82,6 +82,9 @@ module.exports = {
 			boxShadow: {
 				small: '0 5px 10px rgba(0, 0, 0, 0.12)',
 				medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
+				'glass-light': '0 8px 32px 0 rgba(0, 0, 0, 0.15), 0 4px 16px 0 rgba(0, 0, 0, 0.1)',
+				'glass-dark': '0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 4px 16px 0 rgba(0, 0, 0, 0.2)',
+				'glass-hover': '0 20px 60px 0 rgba(0, 0, 0, 0.25), 0 8px 24px 0 rgba(0, 0, 0, 0.15)',
 			},
 		},
 	},

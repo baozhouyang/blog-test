@@ -58,24 +58,24 @@ export default function Search({ publication, results, query, error }: Props) {
         <Head>
           <title>Search - {publication?.title || 'Blog'}</title>
         </Head>
-        <Container className="mx-auto max-w-2xl px-5 py-10">
+        <Container className="mx-auto max-w-2xl py-6 sm:py-8 md:py-10">
           {/* Search Form */}
-          <div className="mb-12 text-center">
-            <h1 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">Search Articles</h1>
+          <div className="mb-8 sm:mb-12 text-center">
+            <h1 className="mb-6 sm:mb-8 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Search Articles</h1>
             <form onSubmit={handleSearch}>
-              <div className="relative mx-auto max-w-xl">
+              <div className="relative mx-auto max-w-xl px-4 sm:px-0">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Type to search..."
-                  className="w-full rounded-full border border-slate-200 bg-white px-6 py-3 pr-12 text-lg focus:border-blue-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                  className="w-full rounded-full border border-slate-200 bg-white px-4 sm:px-6 py-2.5 sm:py-3 pr-10 sm:pr-12 text-base sm:text-lg focus:border-blue-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 />
                 <button
                   type="submit"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-500 dark:text-slate-500 dark:hover:text-blue-400"
+                  className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-500 dark:text-slate-500 dark:hover:text-blue-400"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 sm:h-6 sm:w-6">
                     <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
                   </svg>
                 </button>
@@ -97,20 +97,20 @@ export default function Search({ publication, results, query, error }: Props) {
             </div>
           )}
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {results.map((result) => (
-              <article key={result.id} className="group flex items-baseline justify-between gap-2 py-2">
-                <h2 className="text-lg font-medium">
+              <article key={result.id} className="group flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-2 py-2 sm:py-3 border-b border-slate-200 dark:border-slate-700 last:border-0">
+                <h2 className="text-base sm:text-lg font-medium flex-1">
                   <a
                     href={result.url}
-                    className="text-slate-900 hover:text-blue-600 dark:text-slate-200 dark:hover:text-blue-400"
+                    className="text-slate-900 hover:text-blue-600 dark:text-slate-200 dark:hover:text-blue-400 line-clamp-2"
                   >
                     {result.title}
                   </a>
                 </h2>
                 <time
                   dateTime={result.publishedAt}
-                  className="shrink-0 text-sm text-slate-600 dark:text-slate-400"
+                  className="shrink-0 text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 sm:mt-0"
                 >
                   {new Date(result.publishedAt).toLocaleDateString('en-US', {
                     year: 'numeric',

@@ -79,7 +79,7 @@ export const Analytics = () => {
 				seriesId: null,
 				pageId: staticPageId || null,
 				url: window.location.href,
-				referrer: document.referrer || null,
+				referrer: (typeof document !== 'undefined' && document.referrer) || null,
 				language: navigator.language || null,
 				screen: `${window.screen.width}x${window.screen.height}`,
 			},
