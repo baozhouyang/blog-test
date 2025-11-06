@@ -29,6 +29,56 @@
     @apply prose prose-sm sm:prose-base lg:prose-xl break-words text-slate-950 first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline hover:prose-a:bg-primary-50 dark:hover:prose-a:text-primary-500 dark:hover:prose-a:bg-neutral-800 dark:text-neutral-50 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug dark:prose-invert dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0;
 }
 
+/* 移动端图片优化 - 防止内容块被过度缩放 */
+.hashnode-content-style img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 移动端大图片允许横向滚动，避免被过度缩小 */
+@media (max-width: 640px) {
+    /* 内容区域允许横向滚动，但不影响整体布局 */
+    .hashnode-content-style {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* 对于特别宽的图片容器（figure），允许横向滚动 */
+    .hashnode-content-style figure {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        display: block;
+    }
+    
+    .hashnode-content-style figure img {
+        min-width: min(100%, 600px);
+        max-width: none;
+        width: auto;
+    }
+    
+    /* 对于直接包含在段落中的大图片，也允许横向滚动 */
+    .hashnode-content-style p {
+        overflow-x: visible;
+    }
+    
+    /* 确保大图片（如截图）保持最小可读宽度 */
+    .hashnode-content-style img {
+        min-width: 0;
+    }
+    
+    /* 对于有明确宽度的图片（通常是嵌入的截图），保持其尺寸或允许滚动 */
+    .hashnode-content-style img[width] {
+        min-width: min(100%, 500px);
+    }
+}
+
 /* Override to remove the backtick */
 .hashnode-content-style :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before, .hashnode-content-style :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after  {
     content: none;
