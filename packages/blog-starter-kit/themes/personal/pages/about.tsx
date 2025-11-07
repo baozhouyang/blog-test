@@ -3,24 +3,12 @@ import { Layout } from '../components/layout';
 import { PersonalHeader } from '../components/personal-theme-header';
 import { Footer } from '../components/footer';
 import { AppProvider } from '../components/contexts/appContext';
+import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PublicationFragment } from '../generated/graphql';
 import { GetStaticProps } from 'next';
 import request from 'graphql-request';
 import { PageByPublicationDocument } from '../generated/graphql';
 import Head from 'next/head';
-import { useEffect } from 'react';
-import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-markdown';
-import 'prismjs/components/prism-yaml';
-import 'prismjs/components/prism-docker';
-import 'prismjs/components/prism-go';
-import 'prismjs/components/prism-rust';
 
 type Props = {
   publication: PublicationFragment;
@@ -33,10 +21,6 @@ type Props = {
 };
 
 export default function About({ publication, page }: Props) {
-  useEffect(() => {
-    Prism.highlightAll();
-  }, [page?.content.markdown]);
-
   return (
     <AppProvider publication={publication}>
       <Layout>
@@ -54,10 +38,9 @@ export default function About({ publication, page }: Props) {
               {page?.title || 'About'}
             </h1>
             {page ? (
-              <article
-                className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-lg prose-pre:bg-slate-900"
-                dangerouslySetInnerHTML={{ __html: page.content.markdown }}
-              />
+              <div className="prose prose-sm sm:prose-sm prose-slate mx-auto max-w-none dark:prose-invert overflow-x-hidden">
+                <MarkdownToHtml contentMarkdown={page.content.markdown} />
+              </div>
             ) : (
               <p className="text-center text-slate-500 dark:text-slate-400">
                 No about page content found. Please create an about page in your Hashnode dashboard.

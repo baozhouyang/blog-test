@@ -140,7 +140,7 @@ const Post = ({ publication, post }: PostProps) => {
 					</div>
 				)}
 
-				<div className="prose prose-sm sm:prose-base prose-slate mx-auto max-w-none dark:prose-invert overflow-x-hidden">
+				<div className="prose prose-sm sm:prose-sm prose-slate mx-auto max-w-none dark:prose-invert overflow-x-hidden">
 					<MarkdownToHtml contentMarkdown={post.content.markdown} />
 				</div>
 

@@ -48,45 +48,95 @@ export const MinimalPostPreview = ({
 
 	// 如果没有图片，获取 Unsplash 随机图片（基于 slug 缓存，确保同一篇文章总是使用相同的图片）
 	useEffect(() => {
-		if (!hasImage && !unsplashImage && !isLoadingUnsplash) {
-			// 检查本地存储中是否已有该文章的图片
-			const cacheKey = `unsplash_${slug}`;
-			const cachedImage = typeof window !== 'undefined' ? localStorage.getItem(cacheKey) : null;
-			
-			if (cachedImage) {
-				// 使用缓存的图片
-				setUnsplashImage(cachedImage);
-				return;
-			}
-
-			// 如果没有缓存，获取新的随机图片
-			setIsLoadingUnsplash(true);
-			// 使用更多关键词，增加图片多样性
-			const query = 'blog,writing,technology,nature,design,code,computer,workspace,creative,ideas,innovation,startup,business,minimal,modern,abstract,art,photography,inspiration,motivation';
-			
-			fetch(`/api/unsplash-random?query=${encodeURIComponent(query)}&width=800&height=400&slug=${encodeURIComponent(slug)}`)
-				.then(res => {
-					if (!res.ok) {
-						throw new Error(`HTTP error! status: ${res.status}`);
-					}
-					return res.json();
-				})
-				.then(data => {
-					if (data.url && !data.error) {
-						// 保存到本地存储，确保同一篇文章总是使用相同的图片
-						if (typeof window !== 'undefined') {
-							localStorage.setItem(cacheKey, data.url);
-						}
-						setUnsplashImage(data.url);
-					}
-					setIsLoadingUnsplash(false);
-				})
-				.catch(err => {
-					console.error('Failed to fetch Unsplash image:', err);
-					setIsLoadingUnsplash(false);
-				});
+		// 如果已有图片，不需要获取 Unsplash 图片
+		if (hasImage) {
+			return;
 		}
-	}, [hasImage, unsplashImage, isLoadingUnsplash, slug]);
+
+		// 检查本地存储中是否已有该文章的图片
+		const cacheKey = `unsplash_${slug}`;
+		let cachedImage: string | null = null;
+		
+		if (typeof window !== 'undefined') {
+			try {
+				cachedImage = localStorage.getItem(cacheKey);
+			} catch (e) {
+				// localStorage 可能已满或不可用
+				console.warn('Failed to read from localStorage:', e);
+			}
+		}
+		
+		if (cachedImage) {
+			// 使用缓存的图片
+			setUnsplashImage(cachedImage);
+			return;
+		}
+
+		// 如果没有缓存，获取新的随机图片
+		setIsLoadingUnsplash(true);
+		// 使用更多关键词，增加图片多样性
+		const query = 'blog,writing,technology,nature,design,code,computer,workspace,creative,ideas,innovation,startup,business,minimal,modern,abstract,art,photography,inspiration,motivation';
+		
+		// 使用 AbortController 来清理未完成的请求
+		const abortController = new AbortController();
+		
+		fetch(`/api/unsplash-random?query=${encodeURIComponent(query)}&width=800&height=400&slug=${encodeURIComponent(slug)}`, {
+			signal: abortController.signal
+		})
+			.then(res => {
+				if (!res.ok) {
+					throw new Error(`HTTP error! status: ${res.status}`);
+				}
+				return res.json();
+			})
+			.then(data => {
+				// 检查组件是否已卸载
+				if (abortController.signal.aborted) {
+					return;
+				}
+				
+				if (data.url && !data.error) {
+					// 保存到本地存储，确保同一篇文章总是使用相同的图片
+					if (typeof window !== 'undefined') {
+						try {
+							localStorage.setItem(cacheKey, data.url);
+						} catch (e) {
+							// localStorage 可能已满，尝试清理旧数据
+							console.warn('Failed to write to localStorage, may be full:', e);
+							// 可选：清理旧的缓存项
+							try {
+								const keys = Object.keys(localStorage);
+								const unsplashKeys = keys.filter(k => k.startsWith('unsplash_'));
+								if (unsplashKeys.length > 50) {
+									// 如果超过50个缓存项，删除最旧的10个
+									unsplashKeys.slice(0, 10).forEach(k => localStorage.removeItem(k));
+									// 重试保存
+									localStorage.setItem(cacheKey, data.url);
+								}
+							} catch (cleanupError) {
+								console.warn('Failed to cleanup localStorage:', cleanupError);
+							}
+						}
+					}
+					setUnsplashImage(data.url);
+				}
+				setIsLoadingUnsplash(false);
+			})
+			.catch(err => {
+				// 忽略 AbortError（组件卸载导致的取消）
+				if (err.name !== 'AbortError') {
+					console.error('Failed to fetch Unsplash image:', err);
+				}
+				if (!abortController.signal.aborted) {
+					setIsLoadingUnsplash(false);
+				}
+			});
+
+		// 清理函数：组件卸载时取消请求
+		return () => {
+			abortController.abort();
+		};
+	}, [hasImage, slug]); // 只依赖 hasImage 和 slug，避免不必要的重新执行
 
 	// 最终使用的图片：优先使用原有图片，其次使用 Unsplash 图片
 	const finalImageSrc = coverImageSrc || unsplashImage;

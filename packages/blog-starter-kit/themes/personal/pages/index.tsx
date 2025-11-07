@@ -104,13 +104,13 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 							{/* Left: Large Avatar */}
 							{publication.author?.profilePicture && (
 								<div className="flex-shrink-0">
-									<Image
-										src={publication.author.profilePicture}
-										alt={publication.author.name}
+										<Image
+											src={publication.author.profilePicture}
+											alt={publication.author.name}
 										className="h-32 w-32 sm:h-48 sm:w-48 rounded-full"
 										width={192}
 										height={192}
-									/>
+										/>
 								</div>
 							)}
 
@@ -121,40 +121,40 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
 										<div className="space-y-1">
 											<p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-												{publication.author.name}
-											</p>
-											{publication.author.tagline && (
+											{publication.author.name}
+										</p>
+										{publication.author.tagline && (
 												<p className="text-sm text-slate-600 dark:text-slate-400">
-													{publication.author.tagline}
-												</p>
-											)}
-										</div>
-										{publication.author.bio?.html && (
-											<div 
-												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
-												dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
-											/>
+												{publication.author.tagline}
+											</p>
 										)}
-									</div>
+								</div>
+								{publication.author.bio?.html && (
+									<div 
+												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
+										dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
+									/>
 								)}
+							</div>
+						)}
 
 								{/* Middle Block: About Publication */}
 								{(publication.about?.html || publication.descriptionSEO) && (
 									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
 										<h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-											About this publication
-										</h2>
-										{publication.about?.html ? (
-											<div 
+								About this publication
+							</h2>
+							{publication.about?.html ? (
+								<div 
 												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
-												dangerouslySetInnerHTML={{ __html: publication.about.html }}
-											/>
-										) : (
+									dangerouslySetInnerHTML={{ __html: publication.about.html }}
+								/>
+							) : (
 											<p className="text-sm text-slate-600 dark:text-slate-400">
-												{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
-											</p>
-										)}
-									</div>
+									{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
+								</p>
+							)}
+						</div>
 								)}
 
 							</div>
