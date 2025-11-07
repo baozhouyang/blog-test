@@ -42,3 +42,14 @@ next-env.d.ts
 # vscode
 .vscode/*
 !.vscode/extensions.json
+
+# blog posts and content files
+*.md
+!README.md
+!CONTRIBUTING.md
+!CODE_OF_CONDUCT.md
+!LICENSE.md
+!license.md
+!LOCAL_SETUP.md
+!TODO.md
+packages/**/README.md
