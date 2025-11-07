@@ -99,88 +99,85 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					<PersonalHeader />
 					
 					{/* About this publication */}
-					<div className="space-y-0 rounded-2xl border border-white/40 dark:border-slate-700/40 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl shadow-glass-light dark:shadow-glass-dark">
-						{/* Author Info */}
-						{publication.author && (
-							<div className="space-y-3 sm:space-y-4 p-4 sm:p-6 pb-4 sm:pb-6">
-								<div className="flex items-center gap-3 sm:gap-4">
-									{publication.author.profilePicture && (
-										<Image
-											src={publication.author.profilePicture}
-											alt={publication.author.name}
-											className="h-12 w-12 sm:h-16 sm:w-16 rounded-full shrink-0"
-											width={64}
-											height={64}
-										/>
-									)}
-									<div className="min-w-0 flex-1">
-										<p className="font-medium text-sm sm:text-base text-slate-900 dark:text-white">
-											{publication.author.name}
-										</p>
-										{publication.author.tagline && (
-											<p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-												{publication.author.tagline}
+					<div className="rounded-2xl bg-white dark:bg-slate-900">
+						<div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6">
+							{/* Left: Large Avatar */}
+							{publication.author?.profilePicture && (
+								<div className="flex-shrink-0">
+									<Image
+										src={publication.author.profilePicture}
+										alt={publication.author.name}
+										className="h-32 w-32 sm:h-48 sm:w-48 rounded-full"
+										width={192}
+										height={192}
+									/>
+								</div>
+							)}
+
+							{/* Right: Stacked Information Blocks */}
+							<div className="flex-1 space-y-4">
+								{/* Top Block: Author Info */}
+								{publication.author && (
+									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
+										<div className="space-y-1">
+											<p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+												{publication.author.name}
+											</p>
+											{publication.author.tagline && (
+												<p className="text-sm text-slate-600 dark:text-slate-400">
+													{publication.author.tagline}
+												</p>
+											)}
+										</div>
+										{publication.author.bio?.html && (
+											<div 
+												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
+												dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
+											/>
+										)}
+									</div>
+								)}
+
+								{/* Middle Block: About Publication */}
+								{(publication.about?.html || publication.descriptionSEO) && (
+									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
+										<h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+											About this publication
+										</h2>
+										{publication.about?.html ? (
+											<div 
+												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
+												dangerouslySetInnerHTML={{ __html: publication.about.html }}
+											/>
+										) : (
+											<p className="text-sm text-slate-600 dark:text-slate-400">
+												{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
 											</p>
 										)}
 									</div>
-								</div>
-								{publication.author.bio?.html && (
-									<div 
-										className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
-										dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
-									/>
 								)}
+
 							</div>
-						)}
-
-						{/* 分隔线 */}
-						{publication.author && (publication.about?.html || publication.descriptionSEO) && (
-							<div className="border-t border-slate-200 dark:border-slate-700"></div>
-						)}
-
-						{/* About Publication */}
-						{(publication.about?.html || publication.descriptionSEO) && (
-							<div className="space-y-3 sm:space-y-4 p-4 sm:p-6 pb-4 sm:pb-6">
-								<h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-									About this publication
-								</h2>
-								{publication.about?.html ? (
-									<div 
-										className="prose prose-sm sm:prose-base prose-slate dark:prose-invert max-w-none"
-										dangerouslySetInnerHTML={{ __html: publication.about.html }}
-									/>
-								) : (
-									<p className="text-sm sm:text-base text-slate-500 dark:text-slate-400">
-										{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
-									</p>
-								)}
-							</div>
-						)}
-
-						{/* Debug output */}
-						<div className="hidden">
-							{JSON.stringify({ publication, authorSocialLinks: publication.author?.socialMediaLinks }, null, 2)}
 						</div>
 						
-						{/* 分隔线 */}
-						{publication.links && (publication.author || publication.about?.html || publication.descriptionSEO) && (
-							<div className="border-t border-slate-200 dark:border-slate-700"></div>
-						)}
-						
-						{/* Social Links */}
+						{/* Bottom Block: Social Links - Full Width */}
 						{publication.links && (
-							<div className="p-4 sm:p-6">
-								<div className="flex flex-wrap items-center gap-2 sm:gap-3">
+							<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4 mt-4 mx-4 sm:mx-6">
+								<h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3">
+									Socials
+								</h3>
+								<div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
 									{/* RSS Link */}
 									<a
 										href="/rss.xml"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-orange-500 dark:text-slate-400 dark:hover:text-orange-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-orange-300/50 dark:hover:border-orange-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+										className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 										title="RSS Feed"
 										aria-label="RSS Feed"
 									>
 										<FaRss className="w-4 h-4" />
+										<span className="text-sm font-medium">RSS</span>
 									</a>
 									{/* Twitter/X Link */}
 									{publication.links.twitter && (
@@ -188,11 +185,12 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.twitter}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-slate-300/50 dark:hover:border-slate-600/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 											title="X (Twitter)"
 											aria-label="X (Twitter)"
 										>
 											<SiX className="w-4 h-4" />
+											<span className="text-sm font-medium">X</span>
 										</a>
 									)}
 									{/* Instagram Link */}
@@ -201,11 +199,12 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.instagram}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-pink-500 dark:text-slate-400 dark:hover:text-pink-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-pink-300/50 dark:hover:border-pink-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 											title="Instagram"
 											aria-label="Instagram"
 										>
 											<FaInstagram className="w-4 h-4" />
+											<span className="text-sm font-medium">Instagram</span>
 										</a>
 									)}
 									{/* GitHub Link */}
@@ -214,11 +213,12 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.github}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-slate-300/50 dark:hover:border-slate-600/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 											title="GitHub"
 											aria-label="GitHub"
 										>
 											<FaGithub className="w-4 h-4" />
+											<span className="text-sm font-medium">GitHub</span>
 										</a>
 									)}
 									{/* LinkedIn Link */}
@@ -227,11 +227,12 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.linkedin}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-blue-300/50 dark:hover:border-blue-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 											title="LinkedIn"
 											aria-label="LinkedIn"
 										>
 											<FaLinkedin className="w-4 h-4" />
+											<span className="text-sm font-medium">LinkedIn</span>
 										</a>
 									)}
 									{/* Website Link */}
@@ -240,11 +241,12 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.website}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-blue-300/50 dark:hover:border-blue-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 											title="Website"
 											aria-label="Website"
 										>
 											<FaGlobe className="w-4 h-4" />
+											<span className="text-sm font-medium">Website</span>
 										</a>
 									)}
 									{/* Hashnode Link */}
@@ -253,11 +255,12 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.hashnode}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center justify-center w-8 h-8 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/30 dark:border-slate-700/30 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-blue-300/50 dark:hover:border-blue-500/50 transition-all duration-200 shadow-sm hover:shadow-md"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
 											title="Hashnode"
 											aria-label="Hashnode"
 										>
 											<SiHashnode className="w-4 h-4" />
+											<span className="text-sm font-medium">Hashnode</span>
 										</a>
 									)}
 								</div>
