@@ -22,8 +22,6 @@ tags: 6jaf576k5qb
 
 趁着上班摸鱼的时间，我用小号很轻松的薅到了，在这里我也建议有幸看到的朋友用小号，基于过去被降级的经验，这东西如果Ip被检测出来，或者其他因素检测出来不是阿三本地用户，就会被封号或者丧失GO身份。接码平台我用的是[https://sms-activate.io/ru](https://sms-activate.io/ru)，可以搞个阿三的手机号注册chatgpt或者谷歌账户都可以，国区paypal没有啥门槛，直接随便绑定个银联储蓄卡就行，全程0门槛傻瓜式
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1762569123944/5efe9c84-ef76-4804-918b-7d54dd0c8a9b.png align="center")
-
 接下来在用的时候大概遵循这几点：
 
 1. 全程用印度的全局VPN（有能力的用家宽固定IP，我懒得搞就算了）
