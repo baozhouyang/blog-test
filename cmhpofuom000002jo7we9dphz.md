@@ -24,7 +24,7 @@ tags: 6jaf576k5qb
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1762569123944/5efe9c84-ef76-4804-918b-7d54dd0c8a9b.png align="center")
 
-。。希望接下来在用的时候遵循这几点：
+接下来在用的时候大概遵循这几点：
 
 1. 全程用印度的全局VPN（有能力的用家宽固定IP，我懒得搞就算了）
     
