@@ -3,7 +3,7 @@ title: "Apple TV  我的初体验"
 datePublished: Fri Nov 21 2025 08:54:16 GMT+0000 (Coordinated Universal Time)
 cuid: cmi8mixqd000c02l75wx0610o
 slug: apple-tv
-cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/NmGzVG5Wsg8/upload/fa51f13b60fa628a1e08ce8898d8f03e.jpeg
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/fBPYXUAUAmI/upload/f89ab8499f7a96ec01e9c2cfa66f1d05.jpeg
 tags: apple-tv
 
 ---
