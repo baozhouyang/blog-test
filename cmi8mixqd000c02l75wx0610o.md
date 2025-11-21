@@ -46,3 +46,61 @@ Apple TV 体验下来，就是其完美的UI动画，是现在家里的那台小
 下午赶紧收藏了这个链接，现在等着下班，晚上回去就开始折腾之旅！
 
 [https://github.com/dmunozv04/iSponsorBlockTV](https://github.com/dmunozv04/iSponsorBlockTV)
+
+## 开始折腾
+
+### 步骤一：创建配置文件
+
+因为我用的是群晖NAS，所以我在docker目录下创建了一个isponsorblocktv的文件夹
+
+然后登录ssh
+
+使用以下命令创建配置文件
+
+```bash
+docker run --rm -it \
+-v /volume1/docker/isponsorblocktv:/app/data \
+ghcr.io/dmunozv04/isponsorblocktv \
+--setup-cli
+```
+
+然后界面里会出现设置界面
+
+下面我一行一行设置
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763725946596/48dfa235-b1e1-4347-93e8-c514c384567e.png align="center")
+
+我这里是通过ai来翻译，一行一行设置的，就是让我选择跳过类别的时候，没设置好，我用回退按钮打印上去了大量的^h。。。不过还好，这个还是容易改的，在目录下生成了一个config文件
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763726132764/a52058b9-b109-4df1-9be9-d093de299c99.png align="center")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763726148513/040faa28-f18b-47a6-a1be-39db54758dda.png align="center")
+
+这是我的配置，可以跳过的skip\_categoties主要有（赞助内容、自我推广、专属福利、互动环节、亮点标记、片头曲、片尾曲、节目预告、过渡片段、无关背景音乐）,可以直接修改增删
+
+```bash
+sponsor, selfpromo, exclusive_access, interaction, poi_highlight, intro, outro, preview, filler, music_offtopic
+```
+
+### 步骤二 安装跳过广告服务
+
+我这里用的是docker compose，依然还是在配置的目录
+
+```bash
+services:
+    iSponsorBlockTV:
+        image: ghcr.io/dmunozv04/isponsorblocktv
+        container_name: iSponsorBlockTV
+        restart: unless-stopped
+        network_mode: host
+        volumes:
+        - ./:/app/data #enter the same pathway as you used for your configurator in step 1
+```
+
+然后很顺利的就创建起来啦！！
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763726306153/1ae862f9-62f3-41ac-9a58-a809adc6b25b.png align="center")
+
+试着播放了油管的视频，虽然没有立刻跳过，但是确实实现了广告静音和加速，自动点击跳过的功能，还是很舒服滴！
+
+舒服了！我要去看电视了。
