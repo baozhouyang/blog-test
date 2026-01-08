@@ -152,11 +152,7 @@ const Post = ({ publication, post }: PostProps) => {
 				)}
 
 				{!post.preferences.disableComments && (
-					<Comments
-						comments={post.comments}
-						slug={post.slug}
-						postAuthorUsername={post.author.username}
-					/>
+					<Comments />
 				)}
 			</article>
 		</>
