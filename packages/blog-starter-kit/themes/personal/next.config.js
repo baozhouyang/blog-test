@@ -8,10 +8,13 @@ const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
 const getBasePath = () => {
-	if (BASE_URL && BASE_URL.indexOf('/') !== -1) {
-		return BASE_URL.substring(BASE_URL.indexOf('/'));
+	if (!BASE_URL) return undefined;
+	try {
+		const url = new URL(BASE_URL);
+		return url.pathname === '/' ? undefined : url.pathname;
+	} catch (e) {
+		return undefined;
 	}
-	return undefined;
 };
 
 const getRedirectionRules = async () => {

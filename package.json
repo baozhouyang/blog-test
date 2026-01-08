@@ -7,7 +7,11 @@
   "author": "",
   "scripts": {
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "dev": "pnpm --filter @starter-kit/blog-personal dev",
+    "dev:personal": "pnpm --filter @starter-kit/blog-personal dev",
+    "dev:hashnode": "pnpm --filter @starter-kit/blog-hashnode dev",
+    "dev:enterprise": "pnpm --filter @starter-kit/blog-enterprise dev"
   },
   "dependencies": {
     "classnames": "^2.3.1",

@@ -13,13 +13,13 @@ import { Layout } from '../components/layout';
 import { MinimalPosts } from '../components/minimal-posts';
 import { PersonalHeader } from '../components/personal-theme-header';
 import {
-	FaGithub, 
-	FaLinkedin, 
-	FaInstagram, 
+	FaGithub,
+	FaLinkedin,
+	FaInstagram,
 	FaRss,
 	FaGlobe,
 } from 'react-icons/fa';
-import { 
+import {
 	SiHashnode,
 	SiX,
 } from 'react-icons/si';
@@ -77,7 +77,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 							publication.descriptionSEO || publication.title || `${publication.author.name}'s Blog`
 						}
 					/>
-					<meta property="twitter:card" content="summary_large_image"/>
+					<meta property="twitter:card" content="summary_large_image" />
 					<meta property="twitter:title" content={publication.displayTitle || publication.title || 'Hashnode Blog Starter Kit'} />
 					<meta property="twitter:description" content={publication.descriptionSEO || publication.title || `${publication.author.name}'s Blog`} />
 					<meta
@@ -97,20 +97,20 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 				</Head>
 				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-6 sm:gap-8 md:gap-10 py-6 sm:py-8 md:py-10 min-h-full">
 					<PersonalHeader />
-					
+
 					{/* About this publication */}
 					<div className="rounded-2xl bg-white dark:bg-slate-900">
 						<div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6">
 							{/* Left: Large Avatar */}
 							{publication.author?.profilePicture && (
 								<div className="flex-shrink-0">
-										<Image
-											src={publication.author.profilePicture}
-											alt={publication.author.name}
+									<Image
+										src={publication.author.profilePicture}
+										alt={publication.author.name}
 										className="h-32 w-32 sm:h-48 sm:w-48 rounded-full"
 										width={192}
 										height={192}
-										/>
+									/>
 								</div>
 							)}
 
@@ -121,45 +121,45 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
 										<div className="space-y-1">
 											<p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-											{publication.author.name}
-										</p>
-										{publication.author.tagline && (
-												<p className="text-sm text-slate-600 dark:text-slate-400">
-												{publication.author.tagline}
+												{publication.author.name}
 											</p>
-										)}
-								</div>
-								{publication.author.bio?.html && (
-									<div 
+											{publication.author.tagline && (
+												<p className="text-sm text-slate-600 dark:text-slate-400">
+													{publication.author.tagline}
+												</p>
+											)}
+										</div>
+										{publication.author.bio?.html && (
+											<div
 												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
-										dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
-									/>
+												dangerouslySetInnerHTML={{ __html: publication.author.bio.html }}
+											/>
+										)}
+									</div>
 								)}
-							</div>
-						)}
 
 								{/* Middle Block: About Publication */}
 								{(publication.about?.html || publication.descriptionSEO) && (
 									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
 										<h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-								About this publication
-							</h2>
-							{publication.about?.html ? (
-								<div 
+											About this publication
+										</h2>
+										{publication.about?.html ? (
+											<div
 												className="prose prose-xs sm:prose-sm prose-slate dark:prose-invert max-w-none"
-									dangerouslySetInnerHTML={{ __html: publication.about.html }}
-								/>
-							) : (
+												dangerouslySetInnerHTML={{ __html: publication.about.html }}
+											/>
+										) : (
 											<p className="text-sm text-slate-600 dark:text-slate-400">
-									{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
-								</p>
-							)}
-						</div>
+												{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
+											</p>
+										)}
+									</div>
 								)}
 
 							</div>
 						</div>
-						
+
 						{/* Bottom Block: Social Links - Full Width */}
 						{publication.links && (
 							<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4 mt-4 mx-4 sm:mx-6">
@@ -271,7 +271,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					{/* Posts list */}
 					{posts.length > 0 && <MinimalPosts context="home" posts={posts} />}
 					{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-						<button 
+						<button
 							onClick={loadMore}
 							className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-500/80 dark:bg-blue-600/80 backdrop-blur-md text-white hover:bg-blue-600/90 dark:hover:bg-blue-500/90 border border-blue-400/30 dark:border-blue-500/30 transition-all duration-200 text-sm sm:text-base font-medium shadow-glass-light dark:shadow-glass-dark hover:shadow-glass-hover"
 						>
