@@ -18,6 +18,7 @@ import { Footer } from '../components/footer';
 import { Layout } from '../components/layout';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PersonalHeader } from '../components/personal-theme-header';
+import { Comments } from '../components/comments';
 import {
 	PageByPublicationDocument,
 	PostFullFragment,
@@ -148,6 +149,10 @@ const Post = ({ publication, post }: PostProps) => {
 					<div className="mt-6 sm:mt-8 flex flex-wrap gap-2">
 						{tagsList}
 					</div>
+				)}
+
+				{!post.preferences.disableComments && (
+					<Comments comments={post.comments} />
 				)}
 			</article>
 		</>
