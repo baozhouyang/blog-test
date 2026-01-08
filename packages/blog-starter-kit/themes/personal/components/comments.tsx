@@ -1,26 +1,36 @@
 import { PostFullFragment } from '../generated/graphql';
 import { MarkdownToHtml } from './markdown-to-html';
 import { resizeImage } from '@starter-kit/utils/image';
-import { DateFormatter } from './date-formatter';
 import Image from 'next/image';
+import { Button } from './button'; // Imported Button component
 
 type Props = {
     comments: PostFullFragment['comments'];
+    slug: string; // Added slug
+    postAuthorUsername: string; // Added postAuthorUsername
 };
 
-export const Comments = ({ comments }: Props) => {
+export const Comments = ({ comments, slug, postAuthorUsername }: Props) => {
     const totalComments = comments.totalDocuments;
     const commentEdges = comments.edges ?? [];
-
-    // if (totalComments === 0) {
-    // 	return null;
-    // }
+    const hashnodeDiscussionLink = `https://hashnode.com/@${postAuthorUsername}/${slug}`;
 
     return (
         <section className="mt-12 pt-12 border-t border-slate-200 dark:border-slate-800">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-                Comments ({totalComments})
-            </h2>
+            <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                    Comments ({totalComments})
+                </h2>
+                <Button
+                    as="a"
+                    href={hashnodeDiscussionLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    label={totalComments === 0 ? "Be the first to comment" : "Write a comment"}
+                    type="outline"
+                />
+            </div>
+
             {totalComments === 0 && (
                 <p className="text-slate-500 dark:text-slate-400">
                     暂时还没有评论。
