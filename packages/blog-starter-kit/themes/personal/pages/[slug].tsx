@@ -78,10 +78,10 @@ const Post = ({ publication, post }: PostProps) => {
 
 	const coverImageSrc = !!post.coverImage?.url
 		? resizeImage(post.coverImage.url, {
-				w: 1600,
-				h: 840,
-				c: 'thumb',
-		  })
+			w: 1600,
+			h: 840,
+			c: 'thumb',
+		})
 		: undefined;
 
 	return (
@@ -200,30 +200,34 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 	const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 	const slug = params.slug;
 
-	const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
+	try {
+		const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
 
-	if (postData.publication?.post) {
-		return {
-			props: {
-				type: 'post',
-				post: postData.publication.post,
-				publication: postData.publication,
-			},
-			revalidate: 1,
-		};
-	}
+		if (postData.publication?.post) {
+			return {
+				props: {
+					type: 'post',
+					post: postData.publication.post,
+					publication: postData.publication,
+				},
+				revalidate: 1,
+			};
+		}
 
-	const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
+		const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
 
-	if (pageData.publication?.staticPage) {
-		return {
-			props: {
-				type: 'page',
-				page: pageData.publication.staticPage,
-				publication: pageData.publication,
-			},
-			revalidate: 1,
-		};
+		if (pageData.publication?.staticPage) {
+			return {
+				props: {
+					type: 'page',
+					page: pageData.publication.staticPage,
+					publication: pageData.publication,
+				},
+				revalidate: 1,
+			};
+		}
+	} catch (error) {
+		console.error(`Error fetching data for slug ${slug}:`, error);
 	}
 
 	return {
@@ -233,25 +237,36 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 };
 
 export async function getStaticPaths() {
-	const data = await request(
-		process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-		SlugPostsByPublicationDocument,
-		{
-			first: 10,
-			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-		},
-	);
+	const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+	const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
-	const postSlugs = (data.publication?.posts.edges ?? []).map((edge) => edge.node.slug);
+	try {
+		const data = await request(
+			endpoint,
+			SlugPostsByPublicationDocument,
+			{
+				first: 10,
+				host: host,
+			},
+		);
 
-	return {
-		paths: postSlugs.map((slug) => {
-			return {
-				params: {
-					slug: slug,
-				},
-			};
-		}),
-		fallback: 'blocking',
-	};
+		const postSlugs = (data.publication?.posts.edges ?? []).map((edge) => edge.node.slug);
+
+		return {
+			paths: postSlugs.map((slug) => {
+				return {
+					params: {
+						slug: slug,
+					},
+				};
+			}),
+			fallback: 'blocking',
+		};
+	} catch (error) {
+		console.error('Error in getStaticPaths:', error);
+		return {
+			paths: [],
+			fallback: 'blocking',
+		};
+	}
 }

@@ -289,29 +289,37 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const data = await request<PostsByPublicationQuery, PostsByPublicationQueryVariables>(
-		GQL_ENDPOINT,
-		PostsByPublicationDocument,
-		{
-			first: 20,
-			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-		},
-	);
+	try {
+		const data = await request<PostsByPublicationQuery, PostsByPublicationQueryVariables>(
+			GQL_ENDPOINT,
+			PostsByPublicationDocument,
+			{
+				first: 20,
+				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+			},
+		);
 
-	const publication = data.publication;
-	if (!publication) {
+		const publication = data.publication;
+		if (!publication) {
+			return {
+				notFound: true,
+			};
+		}
+		const initialPosts = (publication.posts.edges ?? []).map((edge) => edge.node);
+
+		return {
+			props: {
+				publication,
+				initialPosts,
+				initialPageInfo: publication.posts.pageInfo,
+			},
+			revalidate: 1,
+		};
+	} catch (error) {
+		console.error('Error fetching data in index getStaticProps:', error);
 		return {
 			notFound: true,
+			revalidate: 1,
 		};
 	}
-	const initialPosts = (publication.posts.edges ?? []).map((edge) => edge.node);
-
-	return {
-		props: {
-			publication,
-			initialPosts,
-			initialPageInfo: publication.posts.pageInfo,
-		},
-		revalidate: 1,
-	};
 };

@@ -87,47 +87,63 @@ export default function SeriesDetail({ publication, series }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await request(
-    process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-    SeriesByPublicationDocument,
-    {
-      host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-    }
-  );
+  try {
+    const data = await request(
+      process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+      SeriesByPublicationDocument,
+      {
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+      }
+    );
 
-  const paths = data.publication?.seriesList?.edges.map(({ node }) => ({
-    params: { slug: node.slug },
-  })) || [];
+    const paths = data.publication?.seriesList?.edges.map(({ node }) => ({
+      params: { slug: node.slug },
+    })) || [];
 
-  return {
-    paths,
-    fallback: 'blocking',
-  };
+    return {
+      paths,
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    console.error('Error in series [slug] getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const slug = params?.slug as string;
 
-  const data = await request(
-    process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-    SingleSeriesByPublicationDocument,
-    {
-      host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-      slug,
-    }
-  );
+  try {
+    const data = await request(
+      process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+      SingleSeriesByPublicationDocument,
+      {
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+        slug,
+      }
+    );
 
-  if (!data.publication || !data.publication.series) {
+    if (!data.publication || !data.publication.series) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        publication: data.publication,
+        series: data.publication.series,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error(`Error in series [slug] getStaticProps for ${slug}:`, error);
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
-
-  return {
-    props: {
-      publication: data.publication,
-      series: data.publication.series,
-    },
-    revalidate: 60,
-  };
 };

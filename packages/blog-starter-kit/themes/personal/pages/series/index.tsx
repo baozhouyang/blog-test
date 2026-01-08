@@ -66,27 +66,35 @@ export default function SeriesIndex({ publication, series }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const data = await request(
-    process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-    SeriesByPublicationDocument,
-    {
-      host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-    }
-  );
+  try {
+    const data = await request(
+      process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+      SeriesByPublicationDocument,
+      {
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+      }
+    );
 
-  if (!data.publication) {
+    if (!data.publication) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const series = data.publication.seriesList?.edges.map((edge) => edge.node) || [];
+
+    return {
+      props: {
+        publication: data.publication,
+        series,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error('Error in series index getStaticProps:', error);
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
-
-  const series = data.publication.seriesList?.edges.map((edge) => edge.node) || [];
-
-  return {
-    props: {
-      publication: data.publication,
-      series,
-    },
-    revalidate: 60,
-  };
 };
