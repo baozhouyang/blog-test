@@ -46,25 +46,34 @@ type Props = {
 export default function Index({ publication, initialPosts, initialPageInfo }: Props) {
 	const [posts, setPosts] = useState<PostFragment[]>(initialPosts);
 	const [pageInfo, setPageInfo] = useState<Props['initialPageInfo']>(initialPageInfo);
-	const [loadedMore, setLoadedMore] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const loadMore = async () => {
-		const data = await request<MorePostsByPublicationQuery, MorePostsByPublicationQueryVariables>(
-			GQL_ENDPOINT,
-			MorePostsByPublicationDocument,
-			{
-				first: 20,
-				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-				after: pageInfo.endCursor,
-			},
-		);
-		if (!data.publication) {
+		if (isLoading || !pageInfo.hasNextPage || !pageInfo.endCursor) {
 			return;
 		}
-		const newPosts = data.publication.posts.edges.map((edge) => edge.node);
-		setPosts([...posts, ...newPosts]);
-		setPageInfo(data.publication.posts.pageInfo);
-		setLoadedMore(true);
+
+		setIsLoading(true);
+		try {
+			const data = await request<MorePostsByPublicationQuery, MorePostsByPublicationQueryVariables>(
+				GQL_ENDPOINT,
+				MorePostsByPublicationDocument,
+				{
+					first: 4,
+					host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+					after: pageInfo.endCursor,
+				},
+			);
+			if (data.publication) {
+				const newPosts = data.publication.posts.edges.map((edge) => edge.node);
+				setPosts([...posts, ...newPosts]);
+				setPageInfo(data.publication.posts.pageInfo);
+			}
+		} catch (error) {
+			console.error('Error loading more posts:', error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 	return (
 		<AppProvider publication={publication}>
@@ -270,16 +279,17 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 
 					{/* Posts list */}
 					{posts.length > 0 && <MinimalPosts context="home" posts={posts} />}
-					{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-						<button
-							onClick={loadMore}
-							className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-500/80 dark:bg-blue-600/80 backdrop-blur-md text-white hover:bg-blue-600/90 dark:hover:bg-blue-500/90 border border-blue-400/30 dark:border-blue-500/30 transition-all duration-200 text-sm sm:text-base font-medium shadow-glass-light dark:shadow-glass-dark hover:shadow-glass-hover"
-						>
-							Load more
-						</button>
-					)}
-					{loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-						<Waypoint onEnter={loadMore} bottomOffset={'10%'} />
+
+					{pageInfo.hasNextPage && pageInfo.endCursor && (
+						<div className="flex justify-center py-8">
+							<Waypoint onEnter={loadMore} bottomOffset={'20%'} />
+							{isLoading && (
+								<div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+									<div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+									<span className="text-sm font-medium">Loading more posts...</span>
+								</div>
+							)}
+						</div>
 					)}
 					<Footer />
 				</Container>
@@ -294,7 +304,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			GQL_ENDPOINT,
 			PostsByPublicationDocument,
 			{
-				first: 20,
+				first: 4,
 				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
 			},
 		);
