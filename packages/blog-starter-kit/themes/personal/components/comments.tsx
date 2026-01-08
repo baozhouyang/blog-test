@@ -12,15 +12,20 @@ export const Comments = ({ comments }: Props) => {
     const totalComments = comments.totalDocuments;
     const commentEdges = comments.edges ?? [];
 
-    if (totalComments === 0) {
-        return null;
-    }
+    // if (totalComments === 0) {
+    // 	return null;
+    // }
 
     return (
         <section className="mt-12 pt-12 border-t border-slate-200 dark:border-slate-800">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
                 Comments ({totalComments})
             </h2>
+            {totalComments === 0 && (
+                <p className="text-slate-500 dark:text-slate-400">
+                    暂时还没有评论。
+                </p>
+            )}
             <div className="space-y-10">
                 {commentEdges.map(({ node: comment }) => (
                     <div key={comment.id} className="flex gap-4 group">
