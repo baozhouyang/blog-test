@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
@@ -16,7 +17,13 @@ export const Footer = () => {
 							aria-label={`${publication.title} home page`}
 							className="flex flex-row items-center gap-5"
 						>
-							<img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
+							<Image
+								className="block w-40 h-auto"
+								src={PUBLICATION_LOGO}
+								alt={publication.title}
+								width={160}
+								height={40}
+							/>
 						</Link>
 					</div>
 				) : (

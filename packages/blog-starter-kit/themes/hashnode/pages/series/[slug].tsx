@@ -116,6 +116,7 @@ export default function Series({
 
 						{posts.length === 0 && publication.isTeam ? (
 							<div className="mb-6 flex w-full flex-col items-center rounded border-2 border-dashed p-6 dark:border-slate-800">
+								{/* eslint-disable-next-line @next/next/no-img-element */}
 								<img
 									className="mb-5 block w-56"
 									alt="No posts"

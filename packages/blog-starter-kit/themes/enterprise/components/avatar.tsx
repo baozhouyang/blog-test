@@ -1,5 +1,6 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import { DEFAULT_AVATAR } from '../utils/const';
+import Image from 'next/image';
 
 type Props = {
 	username: string;
@@ -9,22 +10,22 @@ type Props = {
 };
 
 export const Avatar = ({ username, name, picture, size }: Props) => {
+	const avatarSize = size || 32;
 	return (
 		<div className="flex items-center gap-2">
 			<a
 				href={`https://hashnode.com/@${username}`}
-				className={
-					size
-						? `w-${size} h-${size} block overflow-hidden rounded-full`
-						: 'block h-8 w-8 overflow-hidden rounded-full'
-				}
+				className="block overflow-hidden rounded-full"
+				style={{ width: avatarSize, height: avatarSize }}
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				<img
+				<Image
 					className="block h-full w-full"
 					src={resizeImage(picture, { w: 160, h: 160, c: 'face' }, DEFAULT_AVATAR)}
 					alt={name}
+					width={avatarSize}
+					height={avatarSize}
 				/>
 			</a>
 			<div className="text-base font-bold text-slate-600 dark:text-neutral-300">

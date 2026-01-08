@@ -77,6 +77,7 @@ export default async function handler(req: NextRequest) {
 						<div tw="absolute -top-px -left-px -right-px -bottom-px rounded-xl border-2 border-black/5" />
 						<div tw="mx-auto flex flex-row items-center" style={{ width: '90%' }}>
 							<div tw="mr-20 flex h-56 w-56 overflow-hidden rounded-full">
+								{/* eslint-disable-next-line @next/next/no-img-element */}
 								<img
 									tw="w-full"
 									alt="name"
@@ -90,6 +91,7 @@ export default async function handler(req: NextRequest) {
 								{!logo && title && <p tw="m-0 text-5xl font-bold">{title}</p>}
 
 								{/* Site Logo - load dark logo only if the site is set to open in dark mode */}
+								{/* eslint-disable-next-line @next/next/no-img-element */}
 								{logo ? (
 									<img
 										tw="block w-3/4"
@@ -139,6 +141,7 @@ export default async function handler(req: NextRequest) {
 							{/* Show the following if the team doesn't have a logo and has a thumbnail/favicon */}
 							{!logo && favicon && (
 								<div tw="mr-20 flex h-56 w-56 overflow-hidden rounded-full">
+									{/* eslint-disable-next-line @next/next/no-img-element */}
 									<img
 										tw="w-full"
 										alt="name"
@@ -153,6 +156,7 @@ export default async function handler(req: NextRequest) {
 								{!logo && title && <p tw="m-0 text-5xl font-bold">{title}</p>}
 
 								{/* Site Logo */}
+								{/* eslint-disable-next-line @next/next/no-img-element */}
 								{logo ? <img tw="mb-10 block w-1/2" alt="name" src={logo} /> : null}
 
 								{/* Show domain name */}
