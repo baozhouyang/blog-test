@@ -108,7 +108,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					<PersonalHeader />
 
 					{/* About this publication */}
-					<div className="rounded-2xl bg-white dark:bg-slate-900">
+					<div className="rounded-2xl bg-white dark:bg-[#121212]">
 						<div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6">
 							{/* Left: Large Avatar */}
 							{publication.author?.profilePicture && (
@@ -127,13 +127,13 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 							<div className="flex-1 space-y-4">
 								{/* Top Block: Author Info */}
 								{publication.author && (
-									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
+									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-neutral-800 p-4">
 										<div className="space-y-1">
-											<p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+											<p className="text-lg sm:text-xl font-bold text-slate-900 dark:text-[hsla(0,0%,100%,.87)]">
 												{publication.author.name}
 											</p>
 											{publication.author.tagline && (
-												<p className="text-sm text-slate-600 dark:text-slate-400">
+												<p className="text-sm text-slate-600 dark:text-[hsla(0,0%,100%,.6)]">
 													{publication.author.tagline}
 												</p>
 											)}
@@ -149,8 +149,8 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 
 								{/* Middle Block: About Publication */}
 								{(publication.about?.html || publication.descriptionSEO) && (
-									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-										<h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+									<div className="space-y-2 rounded-lg border border-slate-200 dark:border-neutral-800 p-4">
+										<h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[hsla(0,0%,100%,.87)]">
 											About this publication
 										</h2>
 										{publication.about?.html ? (
@@ -159,7 +159,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 												dangerouslySetInnerHTML={{ __html: publication.about.html }}
 											/>
 										) : (
-											<p className="text-sm text-slate-600 dark:text-slate-400">
+											<p className="text-sm text-slate-600 dark:text-[hsla(0,0%,100%,.6)]">
 												{publication.descriptionSEO || `Welcome to ${publication.title}'s blog.`}
 											</p>
 										)}
@@ -171,8 +171,8 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 
 						{/* Bottom Block: Social Links - Full Width */}
 						{publication.links && (
-							<div className="space-y-2 rounded-lg border border-slate-200 dark:border-slate-700 p-4 mt-4 mx-4 sm:mx-6">
-								<h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-3">
+							<div className="space-y-2 rounded-lg border border-slate-200 dark:border-neutral-800 p-4 mt-4 mx-4 sm:mx-6">
+								<h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[hsla(0,0%,100%,.87)] mb-3">
 									Socials
 								</h3>
 								<div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -181,7 +181,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 										href="/rss.xml"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+										className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 										title="RSS Feed"
 										aria-label="RSS Feed"
 									>
@@ -194,7 +194,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.twitter}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 											title="X (Twitter)"
 											aria-label="X (Twitter)"
 										>
@@ -208,7 +208,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.instagram}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 											title="Instagram"
 											aria-label="Instagram"
 										>
@@ -222,7 +222,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.github}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 											title="GitHub"
 											aria-label="GitHub"
 										>
@@ -236,7 +236,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.linkedin}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 											title="LinkedIn"
 											aria-label="LinkedIn"
 										>
@@ -250,7 +250,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.website}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 											title="Website"
 											aria-label="Website"
 										>
@@ -264,7 +264,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 											href={publication.links.hashnode}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200"
+											className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-[#121212] border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-[hsla(0,0%,100%,.6)] hover:border-slate-300 dark:hover:border-neutral-700 transition-all duration-200"
 											title="Hashnode"
 											aria-label="Hashnode"
 										>
