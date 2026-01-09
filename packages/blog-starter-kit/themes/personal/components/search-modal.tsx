@@ -72,7 +72,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
 	const handleSearch = async (e?: React.FormEvent) => {
 		e?.preventDefault();
-		
+
 		if (!searchQuery.trim() || !publication?.id) {
 			return;
 		}
@@ -136,19 +136,19 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 	return (
 		<div className="fixed inset-0 z-[100] flex items-start justify-center pt-8 sm:pt-16">
 			{/* 背景遮罩 - 毛玻璃效果 */}
-			<div 
+			<div
 				className="absolute inset-0 bg-black/30 backdrop-blur-md"
 				onClick={onClose}
 			/>
-			
+
 			{/* 搜索模态框 */}
 			<div
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}
-				className="relative w-full max-w-2xl mx-4 bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/30 dark:border-slate-700/30 overflow-hidden"
+				className="relative w-full max-w-2xl mx-4 bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/30 dark:border-neutral-800/30 overflow-hidden"
 			>
 				{/* 搜索框 */}
-				<div className="p-6 border-b border-white/20 dark:border-slate-700/20 backdrop-blur-sm">
+				<div className="p-6 border-b border-white/20 dark:border-neutral-800/20 backdrop-blur-sm">
 					<div className="relative">
 						<input
 							ref={inputRef}
@@ -161,7 +161,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 								}
 							}}
 							placeholder="搜索文章..."
-							className="w-full rounded-xl border border-white/40 dark:border-slate-700/40 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md px-4 py-3 pr-12 text-base focus:border-blue-400/60 dark:focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-400/20 dark:focus:ring-blue-500/20 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 shadow-sm"
+							className="w-full rounded-xl border border-white/40 dark:border-neutral-800/40 bg-white/60 dark:bg-[#121212]/60 backdrop-blur-md px-4 py-3 pr-12 text-base focus:border-blue-400/60 dark:focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-400/20 dark:focus:ring-blue-500/20 dark:text-[hsla(0,0%,100%,.87)] placeholder:text-slate-500 dark:placeholder:text-[hsla(0,0%,100%,.6)] shadow-sm"
 						/>
 						<button
 							onClick={() => handleSearch()}
@@ -200,51 +200,51 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 									<div className="space-y-2">
 										{results.map((result) => {
 											// 将完整 URL 转换为相对路径
-											const href = result.url.startsWith('http') 
-												? new URL(result.url).pathname 
+											const href = result.url.startsWith('http')
+												? new URL(result.url).pathname
 												: `/${result.slug}`;
-											
+
 											return (
 												<Link
 													key={result.id}
 													href={href}
 													onClick={handleResultClick}
-													className="block w-full text-left p-4 rounded-xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/30 dark:border-slate-700/30 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-white/50 dark:hover:border-slate-600/50 transition-all duration-200 group shadow-sm"
+													className="block w-full text-left p-4 rounded-xl bg-white/40 dark:bg-[#121212]/40 backdrop-blur-md border border-white/30 dark:border-neutral-800/30 hover:bg-white/60 dark:hover:bg-[#121212]/60 hover:border-white/50 dark:hover:border-neutral-700/50 transition-all duration-200 group shadow-sm"
 												>
-												<div className="flex flex-col sm:flex-row sm:items-start gap-3">
-													{result.coverImage?.url && (
-														<div className="relative w-full sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 shrink-0 shadow-sm">
-															<Image
-																src={result.coverImage.url}
-																alt={result.title}
-																width={96}
-																height={96}
-																className="w-full h-full object-cover"
-															/>
-														</div>
-													)}
-													<div className="flex-1 min-w-0">
-														<h3 className="text-base font-medium text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
-															{result.title}
-														</h3>
-														{result.brief && (
-															<p className="mt-1 text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
-																{result.brief}
-															</p>
+													<div className="flex flex-col sm:flex-row sm:items-start gap-3">
+														{result.coverImage?.url && (
+															<div className="relative w-full sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 shrink-0 shadow-sm">
+																<Image
+																	src={result.coverImage.url}
+																	alt={result.title}
+																	width={96}
+																	height={96}
+																	className="w-full h-full object-cover"
+																/>
+															</div>
 														)}
-														<time
-															dateTime={result.publishedAt}
-															className="mt-2 block text-xs text-slate-500 dark:text-slate-500"
-														>
-															{new Date(result.publishedAt).toLocaleDateString('zh-CN', {
-																year: 'numeric',
-																month: 'long',
-																day: 'numeric',
-															})}
-														</time>
+														<div className="flex-1 min-w-0">
+															<h3 className="text-base font-medium text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+																{result.title}
+															</h3>
+															{result.brief && (
+																<p className="mt-1 text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+																	{result.brief}
+																</p>
+															)}
+															<time
+																dateTime={result.publishedAt}
+																className="mt-2 block text-xs text-slate-500 dark:text-slate-500"
+															>
+																{new Date(result.publishedAt).toLocaleDateString('zh-CN', {
+																	year: 'numeric',
+																	month: 'long',
+																	day: 'numeric',
+																})}
+															</time>
+														</div>
 													</div>
-												</div>
-											</Link>
+												</Link>
 											);
 										})}
 									</div>

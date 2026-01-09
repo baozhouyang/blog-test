@@ -59,7 +59,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 				GQL_ENDPOINT,
 				MorePostsByPublicationDocument,
 				{
-					first: 4,
+					first: 6,
 					host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
 					after: pageInfo.endCursor,
 				},
@@ -104,7 +104,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 						}}
 					/>
 				</Head>
-				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-6 sm:gap-8 md:gap-10 py-6 sm:py-8 md:py-10 min-h-full">
+				<Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-6 sm:gap-8 md:gap-10 py-6 sm:py-8 md:py-10 min-h-full">
 					<PersonalHeader />
 
 					{/* About this publication */}
@@ -304,7 +304,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			GQL_ENDPOINT,
 			PostsByPublicationDocument,
 			{
-				first: 4,
+				first: 6,
 				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
 			},
 		);

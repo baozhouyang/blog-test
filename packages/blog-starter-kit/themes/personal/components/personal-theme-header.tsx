@@ -96,8 +96,8 @@ export const PersonalHeader = () => {
     <header className={`sticky top-0 z-40 bg-white/80 dark:bg-[#121212]/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-neutral-800/50 rounded-t-2xl rounded-b-2xl transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
       }`}>
       <div className={`mx-auto transition-all duration-300 ${isScrolled
-          ? 'max-w-4xl px-3 sm:px-4 lg:px-6'
-          : 'max-w-7xl px-6 sm:px-8 lg:px-12'
+        ? 'max-w-7xl px-3 sm:px-4 lg:px-6'
+        : 'max-w-7xl px-6 sm:px-8 lg:px-12'
         }`}>
         <div className={`relative flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-12 sm:h-14' : 'h-14 sm:h-16'
           }`}>

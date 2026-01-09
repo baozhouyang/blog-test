@@ -9,12 +9,12 @@ type Props = {
 
 export const MinimalPosts = ({ posts }: Props) => {
 	return (
-		<section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 w-full">
+		<section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 w-full">
 			{posts.map((post) => {
 				// 提取文章中的第一张图片
 				const contentImageUrl = extractFirstImageFromMarkdown(post.content?.markdown);
 				const coverImageUrl = post.coverImage?.url || null;
-				
+
 				// 调试：检查数据（仅在开发环境）
 				if (process.env.NODE_ENV === 'development') {
 					const contentLength = post.content?.markdown?.length || 0;
@@ -29,22 +29,22 @@ export const MinimalPosts = ({ posts }: Props) => {
 						contentPreview: contentPreview.substring(0, 100) + '...',
 					});
 				}
-				
+
 				return (
-				<MinimalPostPreview
-					key={post.id}
-					title={post.title}
-					date={post.publishedAt}
-					author={{
-						name: post.author.name,
-					}}
-					slug={post.slug}
-					commentCount={post.comments?.totalDocuments}
-					brief={post.brief}
-					readTimeInMinutes={post.readTimeInMinutes}
+					<MinimalPostPreview
+						key={post.id}
+						title={post.title}
+						date={post.publishedAt}
+						author={{
+							name: post.author.name,
+						}}
+						slug={post.slug}
+						commentCount={post.comments?.totalDocuments}
+						brief={post.brief}
+						readTimeInMinutes={post.readTimeInMinutes}
 						coverImageUrl={coverImageUrl}
 						contentImageUrl={contentImageUrl}
-				/>
+					/>
 				);
 			})}
 		</section>
