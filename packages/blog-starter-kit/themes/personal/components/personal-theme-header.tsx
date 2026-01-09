@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FaInfinity } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from './contexts/appContext';
 import { ToggleTheme } from './toggle-theme';
 import { useRouter } from 'next/router';
@@ -13,14 +13,25 @@ export const PersonalHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      setIsScrolled(scrollTop > 20);
+      const currentScrollY = window.scrollY;
+
+      // Determine visibility based on scroll direction
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      setIsScrolled(currentScrollY > 20);
+      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -95,7 +106,7 @@ export const PersonalHeader = () => {
 
   return (
     <header className={`sticky top-0 z-40 bg-white/20 dark:bg-[#121212]/20 backdrop-blur-[3px] border-b border-slate-200/50 dark:border-neutral-800/50 rounded-t-2xl rounded-b-2xl transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
-      }`}>
+      } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className={`mx-auto transition-all duration-300 ${isScrolled
         ? 'max-w-7xl px-3 sm:px-4 lg:px-6'
         : 'max-w-7xl px-6 sm:px-8 lg:px-12'
