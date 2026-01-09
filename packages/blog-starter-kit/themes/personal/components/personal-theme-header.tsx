@@ -93,7 +93,7 @@ export const PersonalHeader = () => {
   );
 
   return (
-    <header className={`sticky top-0 z-40 bg-white/80 dark:bg-[#121212]/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-neutral-800/50 rounded-t-2xl rounded-b-2xl transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
+    <header className={`sticky top-0 z-40 bg-white/20 dark:bg-[#121212]/20 backdrop-blur-[3px] border-b border-slate-200/50 dark:border-neutral-800/50 rounded-t-2xl rounded-b-2xl transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
       }`}>
       <div className={`mx-auto transition-all duration-300 ${isScrolled
         ? 'max-w-7xl px-3 sm:px-4 lg:px-6'
