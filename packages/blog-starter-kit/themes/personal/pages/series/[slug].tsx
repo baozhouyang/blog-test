@@ -1,4 +1,5 @@
 import { Container } from '../../components/container';
+import { MinimalPosts } from '../../components/minimal-posts';
 import { Layout } from '../../components/layout';
 import { PersonalHeader } from '../../components/personal-theme-header';
 import { Footer } from '../../components/footer';
@@ -28,7 +29,7 @@ export default function SeriesDetail({ publication, series }: Props) {
             content={series.description?.text || `${series.name} series from ${publication.title}`}
           />
         </Head>
-        <Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+        <Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-10 px-5 py-10">
           <PersonalHeader />
           <main>
             <header className="mb-10">
@@ -55,28 +56,7 @@ export default function SeriesDetail({ publication, series }: Props) {
               </div>
             </header>
             <div className="space-y-6">
-              {series.posts.edges.map(({ node: post }, index) => (
-                <article
-                  key={post.slug}
-                  className="relative flex flex-col space-y-3 rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition-colors hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
-                >
-                  <div className="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400">
-                    {index + 1}
-                  </div>
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                    <Link href={`/${post.slug}`} className="hover:text-blue-600 dark:hover:text-blue-400">
-                      {post.title}
-                    </Link>
-                  </h2>
-                  <p className="text-slate-600 dark:text-slate-400">{post.brief}</p>
-                  <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-500">
-                    <time dateTime={post.publishedAt}>
-                      {format(new Date(post.publishedAt), 'MMM d, yyyy')}
-                    </time>
-                    <span>{post.readTimeInMinutes} min read</span>
-                  </div>
-                </article>
-              ))}
+              <MinimalPosts context="series" posts={series.posts.edges.map((e) => e.node)} />
             </div>
           </main>
           <Footer />

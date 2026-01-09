@@ -1,4 +1,5 @@
 import { Container } from '../../components/container';
+import { MinimalPosts } from '../../components/minimal-posts';
 import { Layout } from '../../components/layout';
 import { PersonalHeader } from '../../components/personal-theme-header';
 import { Footer } from '../../components/footer';
@@ -36,7 +37,7 @@ export default function TagPosts({ posts, publication, tag, slug }: Props) {
             content={`Posts tagged with ${tag} on ${publication.title}`}
           />
         </Head>
-        <Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+        <Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-10 px-5 py-10">
           <PersonalHeader />
           <main>
             <div className="mb-8 flex items-baseline gap-4">
@@ -47,34 +48,7 @@ export default function TagPosts({ posts, publication, tag, slug }: Props) {
                 {taggedPosts.length} {taggedPosts.length === 1 ? 'post' : 'posts'}
               </span>
             </div>
-            <div className="space-y-8">
-              {taggedPosts.map((post) => (
-                <article key={post.id} className="flex flex-col space-y-2">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <Link
-                      href={`/${post.slug}`}
-                      className="text-lg font-medium text-slate-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
-                    >
-                      {post.title}
-                    </Link>
-                    <time
-                      dateTime={post.publishedAt}
-                      className="shrink-0 text-sm text-slate-500 dark:text-slate-400"
-                    >
-                      <DateFormatter dateString={post.publishedAt} formatStr="MMM d, yyyy" />
-                    </time>
-                  </div>
-                  {post.brief && (
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{post.brief}</p>
-                  )}
-                </article>
-              ))}
-              {taggedPosts.length === 0 && (
-                <p className="text-center text-slate-500 dark:text-slate-400">
-                  No posts found with this tag.
-                </p>
-              )}
-            </div>
+            <MinimalPosts context="tag" posts={taggedPosts} />
           </main>
           <Footer />
         </Container>

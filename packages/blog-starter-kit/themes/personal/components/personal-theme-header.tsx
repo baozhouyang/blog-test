@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FaInfinity } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { useAppContext } from './contexts/appContext';
 import { ToggleTheme } from './toggle-theme';
@@ -105,10 +106,11 @@ export const PersonalHeader = () => {
           <div className="flex items-center">
             <Link
               href="/"
+              aria-label={publication.title}
               className={`font-semibold text-slate-900 hover:text-slate-700 dark:text-[hsla(0,0%,100%,.87)] dark:hover:text-white transition-all duration-300 ${isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
                 }`}
             >
-              {publication.title}
+              <FaInfinity className="h-6 w-6 sm:h-7 sm:w-7" />
             </Link>
           </div>
 

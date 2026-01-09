@@ -31,7 +31,7 @@ export default function About({ publication, page }: Props) {
             content={`About ${publication.title}`}
           />
         </Head>
-        <Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+        <Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-10 px-5 py-10">
           <PersonalHeader />
           <main>
             <h1 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">
@@ -71,7 +71,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 
   const staticPage = data.publication.staticPage;
-  
+
   return {
     props: {
       publication: data.publication,

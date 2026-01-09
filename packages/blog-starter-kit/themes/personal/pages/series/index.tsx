@@ -30,7 +30,7 @@ export default function SeriesIndex({ publication, series }: Props) {
             content={`Article series from ${publication.title}`}
           />
         </Head>
-        <Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+        <Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-10 px-5 py-10">
           <PersonalHeader />
           <main>
             <div className="mb-8 flex items-center justify-between">
@@ -45,7 +45,7 @@ export default function SeriesIndex({ publication, series }: Props) {
             <SeriesFilters series={series} onFilter={setFilteredSeries} />
 
             {filteredSeries.length > 0 ? (
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {filteredSeries.map((s) => (
                   <SeriesCard key={s.id} series={s} />
                 ))}

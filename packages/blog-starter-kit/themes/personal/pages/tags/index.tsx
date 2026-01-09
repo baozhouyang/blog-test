@@ -18,7 +18,7 @@ type Props = {
 // 从文章中提取所有标签并统计数量
 const getTagsWithCount = (posts: PostFragment[]) => {
   const tagCount: Record<string, { count: number; slug: string }> = {};
-  
+
   posts.forEach(post => {
     const tags = post.tags || [];
     tags.forEach(tag => {
@@ -53,7 +53,7 @@ export default function Tags({ posts, publication }: Props) {
             content={`All tags from ${publication.title}`}
           />
         </Head>
-        <Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+        <Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-10 px-5 py-10">
           <PersonalHeader />
           <main>
             <h1 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">Tags</h1>

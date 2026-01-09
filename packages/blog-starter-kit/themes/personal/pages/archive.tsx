@@ -24,12 +24,12 @@ const MONTHS = [
 // 按年份和月份分组文章
 const groupPostsByYearAndMonth = (posts: PostFragment[]) => {
   const groups: Record<number, Record<number, PostFragment[]>> = {};
-  
+
   posts.forEach(post => {
     const date = new Date(post.publishedAt);
     const year = date.getFullYear();
     const month = date.getMonth();
-    
+
     if (!groups[year]) {
       groups[year] = {};
     }
@@ -75,7 +75,7 @@ export default function Archive({ posts, publication }: Props) {
             content={`Archive of all posts from ${publication.title}`}
           />
         </Head>
-        <Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
+        <Container className="mx-auto flex max-w-7xl flex-col items-stretch gap-10 px-5 py-10">
           <PersonalHeader />
           <main>
             <h1 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">Archive</h1>
@@ -100,8 +100,8 @@ export default function Archive({ posts, publication }: Props) {
                                   {post.title}
                                 </span>
                                 <div className="text-sm text-slate-500 dark:text-slate-400">
-                                  Date: <DateFormatter dateString={post.publishedAt} formatStr="MMMM d, yyyy" /> | 
-                                  Estimated Reading Time: {post.readTimeInMinutes} min | 
+                                  Date: <DateFormatter dateString={post.publishedAt} formatStr="MMMM d, yyyy" /> |
+                                  Estimated Reading Time: {post.readTimeInMinutes} min |
                                   Author: {publication.title}
                                 </div>
                               </Link>
