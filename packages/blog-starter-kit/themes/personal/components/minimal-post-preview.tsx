@@ -19,27 +19,27 @@ type Props = {
 	contentImageUrl?: string | null;
 };
 
-export const MinimalPostPreview = ({ 
-	title, 
-	date, 
-	slug, 
-	commentCount, 
-	brief, 
-	author, 
+export const MinimalPostPreview = ({
+	title,
+	date,
+	slug,
+	commentCount,
+	brief,
+	author,
 	readTimeInMinutes,
 	coverImageUrl,
 	contentImageUrl
 }: Props) => {
 	const postURL = `/${slug}`;
-	
+
 	// 优先级：封面图片 > 文章中的图片 > Unsplash 随机图片
 	const imageUrl = coverImageUrl || contentImageUrl || null;
-	const coverImageSrc = imageUrl 
+	const coverImageSrc = imageUrl
 		? resizeImage(imageUrl, {
-				w: 800,
-				h: 420,
-				c: 'thumb',
-			})
+			w: 800,
+			h: 420,
+			c: 'thumb',
+		})
 		: null;
 
 	const hasImage = !!coverImageSrc;
@@ -56,7 +56,7 @@ export const MinimalPostPreview = ({
 		// 检查本地存储中是否已有该文章的图片
 		const cacheKey = `unsplash_${slug}`;
 		let cachedImage: string | null = null;
-		
+
 		if (typeof window !== 'undefined') {
 			try {
 				cachedImage = localStorage.getItem(cacheKey);
@@ -65,7 +65,7 @@ export const MinimalPostPreview = ({
 				console.warn('Failed to read from localStorage:', e);
 			}
 		}
-		
+
 		if (cachedImage) {
 			// 使用缓存的图片
 			setUnsplashImage(cachedImage);
@@ -76,10 +76,10 @@ export const MinimalPostPreview = ({
 		setIsLoadingUnsplash(true);
 		// 使用更多关键词，增加图片多样性
 		const query = 'blog,writing,technology,nature,design,code,computer,workspace,creative,ideas,innovation,startup,business,minimal,modern,abstract,art,photography,inspiration,motivation';
-		
+
 		// 使用 AbortController 来清理未完成的请求
 		const abortController = new AbortController();
-		
+
 		fetch(`/api/unsplash-random?query=${encodeURIComponent(query)}&width=800&height=400&slug=${encodeURIComponent(slug)}`, {
 			signal: abortController.signal
 		})
@@ -94,7 +94,7 @@ export const MinimalPostPreview = ({
 				if (abortController.signal.aborted) {
 					return;
 				}
-				
+
 				if (data.url && !data.error) {
 					// 保存到本地存储，确保同一篇文章总是使用相同的图片
 					if (typeof window !== 'undefined') {
@@ -143,7 +143,7 @@ export const MinimalPostPreview = ({
 	const hasFinalImage = !!finalImageSrc;
 
 	return (
-		<article className="group relative rounded-2xl border border-white/40 dark:border-slate-700/40 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl overflow-hidden transition-all duration-200 hover:border-white/60 dark:hover:border-slate-600/60 hover:bg-white/50 dark:hover:bg-slate-900/50 shadow-glass-light dark:shadow-glass-dark hover:shadow-glass-hover flex flex-col h-full">
+		<article className="group relative rounded-2xl border border-white/40 dark:border-neutral-800 bg-white/40 dark:bg-[#121212] backdrop-blur-2xl overflow-hidden transition-all duration-200 hover:border-white/60 dark:hover:border-neutral-700 hover:bg-white/50 dark:hover:bg-[#121212] shadow-glass-light hover:shadow-glass-hover flex flex-col h-full">
 			{/* 封面图片 - 紧凑尺寸 */}
 			{finalImageSrc ? (
 				<div className="relative w-full h-32 sm:h-40 overflow-hidden bg-slate-100 dark:bg-slate-800">
@@ -173,11 +173,11 @@ export const MinimalPostPreview = ({
 					<div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-blue-500/20 dark:from-pink-400/30 dark:via-purple-400/30 dark:to-blue-400/30"></div>
 				</div>
 			)}
-			
+
 			{/* 内容区域 - 紧凑布局 */}
 			<div className="flex flex-col gap-2 sm:gap-3 backdrop-blur-sm flex-1 p-4 sm:p-5">
 				{/* 标题 */}
-				<h2 className="text-base sm:text-lg font-semibold tracking-tight text-slate-900 dark:text-white leading-tight line-clamp-2">
+				<h2 className="text-base sm:text-lg font-semibold tracking-tight text-slate-900 dark:text-[hsla(0,0%,100%,.87)] leading-tight line-clamp-2">
 					<Link href={postURL} className="after:absolute after:inset-0">
 						{title}
 					</Link>
@@ -185,7 +185,7 @@ export const MinimalPostPreview = ({
 
 				{/* 摘要 - 显示更多行以提高信息密度 */}
 				{brief ? (
-					<p className="line-clamp-3 text-sm sm:text-base leading-relaxed text-slate-600 dark:text-slate-400 flex-1">
+					<p className="line-clamp-3 text-sm sm:text-base leading-relaxed text-slate-600 dark:text-[hsla(0,0%,100%,.6)] flex-1">
 						{brief}
 					</p>
 				) : (
@@ -193,7 +193,7 @@ export const MinimalPostPreview = ({
 				)}
 
 				{/* 元信息 - 紧凑显示 */}
-				<div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 dark:text-slate-400 mt-auto pt-2">
+				<div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 dark:text-[hsla(0,0%,100%,.6)] mt-auto pt-2">
 					<span><DateFormatter dateString={date} /></span>
 					<span>·</span>
 					<span>{readTimeInMinutes} min</span>

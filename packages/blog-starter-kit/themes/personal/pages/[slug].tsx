@@ -54,7 +54,7 @@ const Post = ({ publication, post }: PostProps) => {
 		<li key={tag.id}>
 			<Link
 				href={`/tag/${tag.slug}`}
-				className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+				className="inline-block rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-[hsla(0,0%,100%,.6)] dark:hover:bg-slate-700"
 			>
 				#{tag.slug}
 			</Link>
@@ -123,11 +123,11 @@ const Post = ({ publication, post }: PostProps) => {
 			</Head>
 			<article className="mx-auto max-w-2xl">
 				<header className="mb-6 sm:mb-8 space-y-4 sm:space-y-6">
-					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-[hsla(0,0%,100%,.87)] leading-tight">
 						{post.title}
 					</h1>
-					<div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-						<span className="font-medium text-slate-700 dark:text-slate-300">{post.author.name}</span>
+					<div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-xs sm:text-sm text-slate-500 dark:text-[hsla(0,0%,100%,.6)]">
+						<span className="font-medium text-slate-700 dark:text-[hsla(0,0%,100%,.87)]">{post.author.name}</span>
 						<span>·</span>
 						<DateFormatter dateString={post.publishedAt} />
 						<span>·</span>

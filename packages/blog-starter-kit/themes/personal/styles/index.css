@@ -9,6 +9,11 @@
 	html {
 		font-family: 'LXGW WenKai', '霞鹜文楷', 'STKaiti', 'KaiTi', '楷体', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Noto Sans CJK SC', 'Noto Sans CJK TC', sans-serif;
 	}
+
+	.dark body {
+		color: hsla(0,0%,100%,.87);
+		background-color: #121212;
+	}
 	
 	/* 代码块和等宽字体保持原样，不使用中文字体 */
 	code,

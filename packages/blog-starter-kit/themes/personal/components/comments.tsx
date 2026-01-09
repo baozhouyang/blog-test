@@ -33,7 +33,7 @@ export const Comments = () => {
     if (!mounted) return null;
 
     return (
-        <section className="mt-12 pt-12 border-t border-slate-200 dark:border-slate-800 w-full">
+        <section className="mt-12 pt-12 border-t border-slate-200 dark:border-neutral-800 w-full">
             <Giscus
                 id="comments"
                 repo="baozhouyang/blog-test"
