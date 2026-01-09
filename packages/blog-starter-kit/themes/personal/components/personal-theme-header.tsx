@@ -27,8 +27,8 @@ export const PersonalHeader = () => {
     <ul className={`flex items-center ${mobile ? 'flex-col gap-4' : 'gap-6 lg:gap-8'}`}>
       {!isHome && (
         <li>
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
             onClick={() => mobile && setIsMenuOpen(false)}
           >
@@ -37,8 +37,8 @@ export const PersonalHeader = () => {
         </li>
       )}
       <li>
-        <Link 
-          href="/tags" 
+        <Link
+          href="/tags"
           className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
@@ -46,8 +46,8 @@ export const PersonalHeader = () => {
         </Link>
       </li>
       <li>
-        <Link 
-          href="/series" 
+        <Link
+          href="/series"
           className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
@@ -55,8 +55,8 @@ export const PersonalHeader = () => {
         </Link>
       </li>
       <li>
-        <Link 
-          href="/archive" 
+        <Link
+          href="/archive"
           className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
@@ -64,9 +64,9 @@ export const PersonalHeader = () => {
         </Link>
       </li>
       <li>
-        <Link 
-          href="/about" 
-          className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors text-sm sm:text-base"
+        <Link
+          href="/about"
+          className="text-slate-500 hover:text-slate-900 dark:text-[hsla(0,0%,100%,.6)] dark:hover:text-[hsla(0,0%,100%,.87)] transition-colors text-sm sm:text-base"
           onClick={() => mobile && setIsMenuOpen(false)}
         >
           About
@@ -81,41 +81,37 @@ export const PersonalHeader = () => {
       <button
         onClick={() => setIsSearchOpen(true)}
         className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
-            title="Search"
+        title="Search"
         aria-label="Search"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-              <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
-            </svg>
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+          <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
+        </svg>
       </button>
-          <ToggleTheme />
-        </div>
+      <ToggleTheme />
+    </div>
   );
 
   return (
-    <header className={`sticky top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 rounded-t-2xl rounded-b-2xl transition-all duration-300 ${
-      isScrolled ? 'shadow-sm' : ''
-    }`}>
-      <div className={`mx-auto transition-all duration-300 ${
-        isScrolled 
-          ? 'max-w-4xl px-3 sm:px-4 lg:px-6' 
-          : 'max-w-7xl px-6 sm:px-8 lg:px-12'
+    <header className={`sticky top-0 z-40 bg-white/80 dark:bg-[#121212]/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-neutral-800/50 rounded-t-2xl rounded-b-2xl transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
       }`}>
-        <div className={`relative flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? 'h-12 sm:h-14' : 'h-14 sm:h-16'
+      <div className={`mx-auto transition-all duration-300 ${isScrolled
+          ? 'max-w-4xl px-3 sm:px-4 lg:px-6'
+          : 'max-w-7xl px-6 sm:px-8 lg:px-12'
         }`}>
+        <div className={`relative flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-12 sm:h-14' : 'h-14 sm:h-16'
+          }`}>
           {/* Logo */}
           <div className="flex items-center">
-        <Link
-          href="/"
-              className={`font-semibold text-slate-900 hover:text-slate-700 dark:text-white dark:hover:text-slate-200 transition-all duration-300 ${
-                isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
-              }`}
-        >
-          {publication.title}
-        </Link>
-      </div>
-          
+            <Link
+              href="/"
+              className={`font-semibold text-slate-900 hover:text-slate-700 dark:text-[hsla(0,0%,100%,.87)] dark:hover:text-white transition-all duration-300 ${isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
+                }`}
+            >
+              {publication.title}
+            </Link>
+          </div>
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:items-center md:gap-8">
             {renderNavItems()}
@@ -145,7 +141,7 @@ export const PersonalHeader = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 md:hidden">
+          <div className="border-t border-slate-200 dark:border-neutral-800 bg-white dark:bg-[#121212] md:hidden">
             <nav className="px-4 sm:px-6 py-4">
               {renderNavItems(true)}
             </nav>
